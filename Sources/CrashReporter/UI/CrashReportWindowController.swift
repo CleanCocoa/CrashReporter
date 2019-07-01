@@ -16,19 +16,25 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
     convenience init(
         crashLogText: String,
         crashLogSender: SendsCrashLog,
-        privacyPolicyURL: URL) {
+        privacyPolicyURL: URL,
+        hideAutomaticallySend: Bool = false) {
 
         self.init(windowNibName: "CrashReporterWindow")
 
         self.crashLogText = crashLogText
         self.crashLogSender = crashLogSender
         self.privacyPolicyURL = privacyPolicyURL
+        self.hideAutomaticallySend = hideAutomaticallySend
     }
 
     override func windowDidLoad() {
         super.windowDidLoad()
         window?.center()
         window?.delegate = self
+
+        updateCrashLogText()
+        updateButtonStates()
+        updateAutomaticallySendCrashLogVisibility()
     }
 
     var onWindowWillClose: ((NSWindow?) -> Void)?
@@ -47,6 +53,25 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
 		}
 	}
 
+    @IBOutlet weak var sendAutomaticallyContainerView: NSView!
+    @IBOutlet weak var sendAutomaticallyCheckbox: NSButton!
+    @IBOutlet weak var sendAutomaticallyLabel: NSTextField!
+
+    private var _sendAutomaticallyHide: NSLayoutConstraint?
+    lazy var hideSendAutomaticallyConstraint: NSLayoutConstraint = {
+        let containerView = sendAutomaticallyContainerView!
+        let constraint = NSLayoutConstraint(
+            item: containerView,
+            attribute: .height,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .height,
+            multiplier: 1,
+            constant: 0)
+        constraint.priority = .required
+        return constraint
+    }()
+
 	@IBOutlet var sendCrashLogButton: NSButton!
 	@IBOutlet var dontSendButton: NSButton!
 
@@ -56,11 +81,32 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
     }
 
     private func updateButtonStates() {
-        sendCrashLogButton.isEnabled = (crashLogSender != nil) && !didSendCrashLog
-        dontSendButton.isEnabled = !didSendCrashLog
+        sendCrashLogButton?.isEnabled = (crashLogSender != nil) && !didSendCrashLog
+        dontSendButton?.isEnabled = !didSendCrashLog
+    }
+
+    private func updateAutomaticallySendCrashLogVisibility() {
+        let isDisabled = self.hideAutomaticallySend
+        sendAutomaticallyCheckbox?.isEnabled = !isDisabled
+        sendAutomaticallyCheckbox?.isHidden = isDisabled
+        sendAutomaticallyLabel?.isHidden = isDisabled
+
+        if isDisabled {
+            if !sendAutomaticallyContainerView.constraints.contains(hideSendAutomaticallyConstraint) {
+                sendAutomaticallyContainerView.addConstraint(hideSendAutomaticallyConstraint)
+            }
+        } else {
+            sendAutomaticallyContainerView.removeConstraint(hideSendAutomaticallyConstraint)
+        }
     }
 
     // MARK: Model
+
+    internal var hideAutomaticallySend: Bool = false {
+        didSet {
+            updateAutomaticallySendCrashLogVisibility()
+        }
+    }
 
     internal var privacyPolicyURL: URL?
 

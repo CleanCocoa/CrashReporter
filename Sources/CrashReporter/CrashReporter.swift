@@ -91,7 +91,9 @@ public final class CrashReporter: SendsCrashLog {
     ///
     /// - param alwaysShowCrashReporterWindow: Overrides the user setting `shouldSendCrashLogsAutomaticallyKey`. Default is false.
     public func check(alwaysShowCrashReporterWindow: Bool = false) {
-        self.check(appName: Bundle.main.infos[.bundleName]!)
+        self.check(
+            appName: Bundle.main.infos[.bundleName]!,
+            alwaysShowCrashReporterWindow: alwaysShowCrashReporterWindow)
     }
 
     /// Look in ~/Library/Logs/DiagnosticReports/ for a new crash log for `appName`.
@@ -113,7 +115,7 @@ public final class CrashReporter: SendsCrashLog {
         if shouldSendCrashLogsAutomatically && alwaysShowCrashReporterWindow == false {
             send(crashLogText: crashLog.content)
         } else {
-            runCrashReporterWindow(crashLog)
+            runCrashReporterWindow(crashLog, hideSendReportsAutomaticallyOption: alwaysShowCrashReporterWindow)
         }
     }
 
@@ -158,11 +160,12 @@ public final class CrashReporter: SendsCrashLog {
 
     internal var crashReportWindowController: CrashReportWindowController?
 
-    internal func runCrashReporterWindow(_ crashLog: CrashLog) {
+    internal func runCrashReporterWindow(_ crashLog: CrashLog, hideSendReportsAutomaticallyOption: Bool) {
         self.crashReportWindowController = CrashReportWindowController(
             crashLogText: crashLog.content,
             crashLogSender: self,
-            privacyPolicyURL: self.privacyPolicyURL)
+            privacyPolicyURL: self.privacyPolicyURL,
+            hideAutomaticallySend: hideSendReportsAutomaticallyOption)
         self.crashReportWindowController?.showWindow(self)
         self.crashReportWindowController?.window?.makeKeyAndOrderFront(self)
 

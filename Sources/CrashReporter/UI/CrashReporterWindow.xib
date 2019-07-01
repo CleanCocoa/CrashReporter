@@ -8,6 +8,9 @@
         <customObject id="-2" userLabel="File's Owner" customClass="CrashReportWindowController" customModule="CrashReporter" customModuleProvider="target">
             <connections>
                 <outlet property="dontSendButton" destination="o4V-7L-v6D" id="Sxa-iT-OTj"/>
+                <outlet property="sendAutomaticallyCheckbox" destination="MDs-Wi-EiJ" id="rKg-5U-s6o"/>
+                <outlet property="sendAutomaticallyContainerView" destination="7JX-Ab-aSd" id="vWo-Za-2gp"/>
+                <outlet property="sendAutomaticallyLabel" destination="D5D-Vb-5TR" id="nIQ-rB-PXU"/>
                 <outlet property="sendCrashLogButton" destination="fcK-kG-dtY" id="T04-pD-qZq"/>
                 <outlet property="textView" destination="hW5-cq-81L" id="RLj-Ti-pGC"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="4kq-h9-osI"/>
@@ -42,17 +45,17 @@
                         </textFieldCell>
                     </textField>
                     <scrollView borderType="line" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTe-5f-47F">
-                        <rect key="frame" x="20" y="153" width="456" height="256"/>
+                        <rect key="frame" x="20" y="154" width="456" height="255"/>
                         <clipView key="contentView" copiesOnScroll="NO" id="MeG-49-sPS">
-                            <rect key="frame" x="1" y="1" width="454" height="254"/>
+                            <rect key="frame" x="1" y="1" width="454" height="253"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="hW5-cq-81L">
-                                    <rect key="frame" x="0.0" y="0.0" width="454" height="254"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="454" height="253"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="454" height="254"/>
+                                    <size key="minSize" width="454" height="253"/>
                                     <size key="maxSize" width="456" height="10000000"/>
                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 </textView>
@@ -64,15 +67,15 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="wLl-nc-XBT">
-                            <rect key="frame" x="439" y="1" width="16" height="254"/>
+                            <rect key="frame" x="439" y="1" width="16" height="253"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="7JX-Ab-aSd">
-                        <rect key="frame" x="20" y="61" width="456" height="73"/>
+                    <customView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="7JX-Ab-aSd">
+                        <rect key="frame" x="20" y="41" width="456" height="93"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MDs-Wi-EiJ">
-                                <rect key="frame" x="-2" y="57" width="460" height="18"/>
+                                <rect key="frame" x="-2" y="77" width="460" height="18"/>
                                 <buttonCell key="cell" type="check" title="Send crash reports automatically" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hsB-Hx-Fgs">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -92,7 +95,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5D-Vb-5TR">
-                                <rect key="frame" x="-2" y="0.0" width="460" height="51"/>
+                                <rect key="frame" x="-2" y="20" width="460" height="51"/>
                                 <textFieldCell key="cell" allowsUndo="NO" id="nou-5k-c1U">
                                     <font key="font" metaFont="system"/>
                                     <string key="title">You can skip this window in the future when you enable automatically sending crash logs. You can also turn this setting on and off in the Preferences.</string>
@@ -106,7 +109,7 @@
                             <constraint firstItem="D5D-Vb-5TR" firstAttribute="leading" secondItem="MDs-Wi-EiJ" secondAttribute="leading" id="SEA-gf-3Qg"/>
                             <constraint firstItem="MDs-Wi-EiJ" firstAttribute="leading" secondItem="7JX-Ab-aSd" secondAttribute="leading" id="cMh-Sc-z7y"/>
                             <constraint firstItem="D5D-Vb-5TR" firstAttribute="trailing" secondItem="MDs-Wi-EiJ" secondAttribute="trailing" id="eeo-OX-d2U"/>
-                            <constraint firstAttribute="bottom" secondItem="D5D-Vb-5TR" secondAttribute="bottom" id="khu-6p-w7t"/>
+                            <constraint firstAttribute="bottom" secondItem="D5D-Vb-5TR" secondAttribute="bottom" priority="750" constant="20" id="khu-6p-w7t"/>
                             <constraint firstItem="D5D-Vb-5TR" firstAttribute="top" secondItem="MDs-Wi-EiJ" secondAttribute="bottom" constant="8" id="oSZ-Tw-w0C"/>
                             <constraint firstItem="MDs-Wi-EiJ" firstAttribute="top" secondItem="7JX-Ab-aSd" secondAttribute="top" id="z9F-2V-CvJ"/>
                         </constraints>
@@ -170,10 +173,10 @@ DQ
                     <constraint firstAttribute="trailing" secondItem="QBv-7S-WQv" secondAttribute="trailing" constant="20" id="CcL-Ix-apq"/>
                     <constraint firstItem="b7P-9Z-RkD" firstAttribute="top" secondItem="QBv-7S-WQv" secondAttribute="bottom" constant="8" id="Cs6-uc-UtH"/>
                     <constraint firstItem="7JX-Ab-aSd" firstAttribute="trailing" secondItem="UTe-5f-47F" secondAttribute="trailing" id="KPj-fQ-zcp"/>
-                    <constraint firstItem="7JX-Ab-aSd" firstAttribute="top" secondItem="UTe-5f-47F" secondAttribute="bottom" constant="19" id="Mv2-vN-5kT"/>
+                    <constraint firstItem="7JX-Ab-aSd" firstAttribute="top" secondItem="UTe-5f-47F" secondAttribute="bottom" priority="750" constant="20" id="Mv2-vN-5kT"/>
                     <constraint firstItem="pgd-B4-8yx" firstAttribute="leading" secondItem="7JX-Ab-aSd" secondAttribute="leading" id="WQa-fd-1pf"/>
                     <constraint firstItem="UTe-5f-47F" firstAttribute="top" secondItem="b7P-9Z-RkD" secondAttribute="bottom" constant="8" id="Wra-mK-cVV"/>
-                    <constraint firstItem="pgd-B4-8yx" firstAttribute="top" secondItem="7JX-Ab-aSd" secondAttribute="bottom" constant="20" id="c5O-rj-AZM"/>
+                    <constraint firstItem="pgd-B4-8yx" firstAttribute="top" secondItem="7JX-Ab-aSd" secondAttribute="bottom" id="c5O-rj-AZM"/>
                     <constraint firstItem="UTe-5f-47F" firstAttribute="trailing" secondItem="b7P-9Z-RkD" secondAttribute="trailing" id="e9c-kn-Lfb"/>
                     <constraint firstItem="b7P-9Z-RkD" firstAttribute="leading" secondItem="QBv-7S-WQv" secondAttribute="leading" id="esA-aW-n5S"/>
                     <constraint firstAttribute="bottom" secondItem="pgd-B4-8yx" secondAttribute="bottom" constant="20" id="lSA-rG-Kb1"/>
