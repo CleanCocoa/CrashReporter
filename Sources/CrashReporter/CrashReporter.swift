@@ -72,11 +72,7 @@ public final class CrashReporter: SendsCrashLog {
 
     /// Testing seam and configuration option to fetch reports.
     /// Default is `"~/Library/Logs/DiagnosticReports/"`
-    internal lazy var crashReportFolderURL: URL = self.fileManager
-        .homeDirectoryForCurrentUser
-        .appendingPathComponent("Library")
-        .appendingPathComponent("Logs")
-        .appendingPathComponent("DiagnosticReports")
+    internal lazy var crashReportFolderURL: URL = self.fileManager.diagnosticsReportsFolderURL
 
     /// Testing seam.
     internal var fileManager: FileManager {
@@ -226,6 +222,21 @@ extension FileManager {
     fileprivate func fileModificationDate(url: URL) -> Date? {
         let fileAttributes: [FileAttributeKey: Any] = (try? self.attributesOfItem(atPath: url.path)) ?? [:]
         return fileAttributes[.modificationDate] as? Date
+    }
+
+    fileprivate var diagnosticsReportsFolderURL: URL {
+        let homeDirectory: URL
+
+        if #available(OSX 10.12, *) {
+            homeDirectory = self.homeDirectoryForCurrentUser
+        } else {
+            homeDirectory = URL(fileURLWithPath: ("~" as NSString).expandingTildeInPath)
+        }
+
+        return homeDirectory
+            .appendingPathComponent("Library")
+            .appendingPathComponent("Logs")
+            .appendingPathComponent("DiagnosticReports")
     }
 }
 
