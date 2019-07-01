@@ -17,14 +17,14 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         crashLogText: String,
         crashLogSender: SendsCrashLog,
         privacyPolicyURL: URL,
-        hideAutomaticallySend: Bool = false) {
+        sendReportsAutomaticallySetting: SendReportsAutomaticallySetting) {
 
         self.init(windowNibName: "CrashReporterWindow")
 
         self.crashLogText = crashLogText
         self.crashLogSender = crashLogSender
         self.privacyPolicyURL = privacyPolicyURL
-        self.hideAutomaticallySend = hideAutomaticallySend
+        self.sendReportsAutomaticallySetting = sendReportsAutomaticallySetting
     }
 
     override func windowDidLoad() {
@@ -102,9 +102,23 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
 
     // MARK: Model
 
-    internal var hideAutomaticallySend: Bool = false {
+    internal var sendReportsAutomaticallySetting: SendReportsAutomaticallySetting = .standard {
         didSet {
             updateAutomaticallySendCrashLogVisibility()
+        }
+    }
+
+    internal var hideAutomaticallySend: Bool {
+        return !sendReportsAutomaticallySetting.isVisible
+    }
+
+    /// KVC wrapper for `sendReportsAutomaticallySetting.isEnabled`
+    @objc dynamic var sendCrashReportsAutomatically: Bool {
+        get {
+            return sendReportsAutomaticallySetting.isEnabled
+        }
+        set {
+            sendReportsAutomaticallySetting.isEnabled = newValue
         }
     }
 

@@ -9,34 +9,34 @@ import Foundation
 
 public final class CrashReporter: SendsCrashLog {
 
-    /// Definition of the UserDefaults keys to use.
-    public struct DefaultsKeys {
-        public static var standard: DefaultsKeys {
-            return DefaultsKeys(
-                sendCrashLogsAutomaticallyKey: "CRR_sendCrashLogsAutomatically",
-                lastSeenCrashLogTimeSince1970Key: "CRR_lastSeenCrashLogTimeSince1970",
-                lastSeenCrashLogMD5Key: "CRR_lastSeenCrashLogMD5")
-        }
-
-        public let sendCrashLogsAutomaticallyKey: String
-        public let lastSeenCrashLogTimeSince1970Key: String
-        public let lastSeenCrashLogMD5Key: String
-
-        public init(
-            sendCrashLogsAutomaticallyKey: String,
-            lastSeenCrashLogTimeSince1970Key: String,
-            lastSeenCrashLogMD5Key: String) {
-
-            self.sendCrashLogsAutomaticallyKey = sendCrashLogsAutomaticallyKey
-            self.lastSeenCrashLogTimeSince1970Key = lastSeenCrashLogTimeSince1970Key
-            self.lastSeenCrashLogMD5Key = lastSeenCrashLogMD5Key
-        }
-    }
-
     public let crashReporterURL: URL
     public let privacyPolicyURL: URL
     public let userDefaults: UserDefaults
     public let defaultsKeys: DefaultsKeys
+
+    /// Convenience accessor for `sendCrashLogsAutomaticallyKey` defaults.
+    ///
+    /// Can be wrapped for KVC/Cocoa bindings in your preference panes when you access it as a `@objc dynamic var`:
+    ///
+    ///     let var crashReporter = // ...
+    ///     
+    ///     @objc dynamic var sendCrashReportsAutomatically: Bool {
+    ///         get {
+    ///             return crashReporter.sendCrashReportsAutomatically
+    ///         }
+    ///         set {
+    ///             crashReporter.sendCrashReportsAutomatically = newValue
+    ///         }
+    ///     }
+    ///
+    public var sendCrashReportsAutomatically: Bool {
+        get {
+            return userDefaults.bool(forKey: defaultsKeys.sendCrashLogsAutomaticallyKey)
+        }
+        set {
+            userDefaults.set(newValue, forKey: defaultsKeys.sendCrashLogsAutomaticallyKey)
+        }
+    }
 
     /// - param crashReporterURL: Server endpoint to send the crash log to.
     /// - param privacyPolicyURL: Web address that points to your privacy policy with details on how you handle crash log data.
@@ -161,11 +161,16 @@ public final class CrashReporter: SendsCrashLog {
     internal var crashReportWindowController: CrashReportWindowController?
 
     internal func runCrashReporterWindow(_ crashLog: CrashLog, hideSendReportsAutomaticallyOption: Bool) {
+        let sendAutomaticallySetting = SendReportsAutomaticallySetting(
+            isVisible: !hideSendReportsAutomaticallyOption,
+            userDefaults: self.userDefaults,
+            sendCrashLogsAutomaticallyKey: self.defaultsKeys.sendCrashLogsAutomaticallyKey)
+
         self.crashReportWindowController = CrashReportWindowController(
             crashLogText: crashLog.content,
             crashLogSender: self,
             privacyPolicyURL: self.privacyPolicyURL,
-            hideAutomaticallySend: hideSendReportsAutomaticallyOption)
+            sendReportsAutomaticallySetting: sendAutomaticallySetting)
         self.crashReportWindowController?.showWindow(self)
         self.crashReportWindowController?.window?.makeKeyAndOrderFront(self)
 

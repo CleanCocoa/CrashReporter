@@ -81,15 +81,10 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                                 <connections>
-                                    <binding destination="Owf-g6-irL" name="value" keyPath="values.SendCrashLogsAutomatically" id="jSt-MH-Wqe">
+                                    <binding destination="-2" name="value" keyPath="self.sendCrashReportsAutomatically" id="XWy-cs-SjI">
                                         <dictionary key="options">
-                                            <bool key="NSAllowsEditingMultipleValuesSelection" value="NO"/>
-                                            <bool key="NSConditionallySetsEnabled" value="NO"/>
-                                            <integer key="NSMultipleValuesPlaceholder" value="0"/>
-                                            <integer key="NSNoSelectionPlaceholder" value="0"/>
                                             <integer key="NSNotApplicablePlaceholder" value="0"/>
                                             <integer key="NSNullPlaceholder" value="0"/>
-                                            <bool key="NSRaisesForNotApplicableKeys" value="NO"/>
                                         </dictionary>
                                     </binding>
                                 </connections>
@@ -189,6 +184,5 @@ DQ
             </view>
             <point key="canvasLocation" x="121" y="-239"/>
         </window>
-        <userDefaultsController representsSharedInstance="YES" id="Owf-g6-irL"/>
     </objects>
 </document>
