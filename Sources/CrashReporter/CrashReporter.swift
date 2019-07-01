@@ -85,23 +85,32 @@ public final class CrashReporter: SendsCrashLog {
 
     // MARK: - Check for crashes
 
+    /// Look in ~/Library/Logs/DiagnosticReports/ for a new crash log for this app.
+    ///
     /// Checks for crashes using the `CFBundleName` from the main app bundle as `appName`.
-    public func check() {
+    ///
+    /// - param alwaysShowCrashReporterWindow: Overrides the user setting `shouldSendCrashLogsAutomaticallyKey`. Default is false.
+    public func check(alwaysShowCrashReporterWindow: Bool = false) {
         self.check(appName: Bundle.main.infos[.bundleName]!)
     }
 
-    /// Look in ~/Library/Logs/DiagnosticReports/ for a new crash log for this app.
-    /// Show a crash log reporter window if .
-    public func check(appName: String) {
-        guard let crashLog = mostRecentCrashInfo(appName: appName)?.crashLog()
-            else { return }
+    /// Look in ~/Library/Logs/DiagnosticReports/ for a new crash log for `appName`.
+    ///
+    /// If a new crash log was found, show the reporter window or automatically
+    /// upload the report, depending on the `shouldSendCrashLogsAutomaticallyKey`.
+    /// Set `alwaysShowCrashReporterWindow` to override this behavior.
+    ///
+    /// - param appName: Name of the application to search recent crash reports for.
+    /// - param alwaysShowCrashReporterWindow: Overrides the user setting `shouldSendCrashLogsAutomaticallyKey`. Default is false.
+    public func check(appName: String, alwaysShowCrashReporterWindow: Bool = false) {
+        guard let crashLog = mostRecentCrashInfo(appName: appName)?.crashLog() else { return }
 
         if hasSeen(crashLog) {
             return
         }
         remember(crashLog)
 
-        if shouldSendCrashLogsAutomatically {
+        if shouldSendCrashLogsAutomatically && alwaysShowCrashReporterWindow == false {
             send(crashLogText: crashLog.content)
         } else {
             runCrashReporterWindow(crashLog)
