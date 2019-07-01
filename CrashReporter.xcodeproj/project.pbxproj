@@ -81,7 +81,8 @@
 			children = (
 				50F832E322C9FBD300DBD0DD /* Info.plist */,
 			);
-			path = CrashReporterTests;
+			name = CrashReporterTests;
+			path = Tests/CrashReporterTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -392,7 +393,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = FRMDA3XRGC;
-				INFOPLIST_FILE = CrashReporterTests/Info.plist;
+				INFOPLIST_FILE = Tests/CrashReporterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -410,7 +411,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = FRMDA3XRGC;
-				INFOPLIST_FILE = CrashReporterTests/Info.plist;
+				INFOPLIST_FILE = Tests/CrashReporterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
