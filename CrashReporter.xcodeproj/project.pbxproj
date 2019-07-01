@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		50F832DD22C9FBD300DBD0DD /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F832D322C9FBD300DBD0DD /* CrashReporter.framework */; };
 		50F832E422C9FBD300DBD0DD /* CrashReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F832D622C9FBD300DBD0DD /* CrashReporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50F832FE22CA006600DBD0DD /* String+md5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F832F222CA006600DBD0DD /* String+md5.swift */; };
+		50F832FF22CA006600DBD0DD /* URLResponse+statusIsOK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F832F322CA006600DBD0DD /* URLResponse+statusIsOK.swift */; };
+		50F8330022CA006600DBD0DD /* OneShotDownload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F832F422CA006600DBD0DD /* OneShotDownload.swift */; };
+		50F8330122CA006600DBD0DD /* CrashReporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F832F522CA006600DBD0DD /* CrashReporter.swift */; };
+		50F8330222CA006600DBD0DD /* CrashReportWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F832F722CA006600DBD0DD /* CrashReportWindowController.swift */; };
+		50F8330322CA006600DBD0DD /* CrashReporterWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50F832F822CA006600DBD0DD /* CrashReporterWindow.xib */; };
+		50F8330722CA00F600DBD0DD /* CrashLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F8330622CA00F600DBD0DD /* CrashLog.swift */; };
+		50F8330922CA027B00DBD0DD /* Bundle+InfoKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F8330822CA027B00DBD0DD /* Bundle+InfoKeys.swift */; };
+		50F8330B22CA35B800DBD0DD /* HTTPURLResponse+valueForHTTPHeaderField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F8330A22CA35B800DBD0DD /* HTTPURLResponse+valueForHTTPHeaderField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +37,15 @@
 		50F832DC22C9FBD300DBD0DD /* CrashReporterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CrashReporterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F832E322C9FBD300DBD0DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50F832ED22C9FFBB00DBD0DD /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		50F832F222CA006600DBD0DD /* String+md5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+md5.swift"; sourceTree = "<group>"; };
+		50F832F322CA006600DBD0DD /* URLResponse+statusIsOK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "URLResponse+statusIsOK.swift"; sourceTree = "<group>"; };
+		50F832F422CA006600DBD0DD /* OneShotDownload.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OneShotDownload.swift; sourceTree = "<group>"; };
+		50F832F522CA006600DBD0DD /* CrashReporter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrashReporter.swift; sourceTree = "<group>"; };
+		50F832F722CA006600DBD0DD /* CrashReportWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CrashReportWindowController.swift; sourceTree = "<group>"; };
+		50F832F822CA006600DBD0DD /* CrashReporterWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CrashReporterWindow.xib; sourceTree = "<group>"; };
+		50F8330622CA00F600DBD0DD /* CrashLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashLog.swift; sourceTree = "<group>"; };
+		50F8330822CA027B00DBD0DD /* Bundle+InfoKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+InfoKeys.swift"; sourceTree = "<group>"; };
+		50F8330A22CA35B800DBD0DD /* HTTPURLResponse+valueForHTTPHeaderField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+valueForHTTPHeaderField.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +90,10 @@
 			isa = PBXGroup;
 			children = (
 				50F832D622C9FBD300DBD0DD /* CrashReporter.h */,
+				50F832F522CA006600DBD0DD /* CrashReporter.swift */,
+				50F8330622CA00F600DBD0DD /* CrashLog.swift */,
+				50F832F622CA006600DBD0DD /* UI */,
+				50F832F122CA006600DBD0DD /* Infrastructure */,
 				50F832D722C9FBD300DBD0DD /* Info.plist */,
 			);
 			name = CrashReporter;
@@ -85,6 +107,27 @@
 			);
 			name = CrashReporterTests;
 			path = Tests/CrashReporterTests;
+			sourceTree = "<group>";
+		};
+		50F832F122CA006600DBD0DD /* Infrastructure */ = {
+			isa = PBXGroup;
+			children = (
+				50F8330822CA027B00DBD0DD /* Bundle+InfoKeys.swift */,
+				50F8330A22CA35B800DBD0DD /* HTTPURLResponse+valueForHTTPHeaderField.swift */,
+				50F832F422CA006600DBD0DD /* OneShotDownload.swift */,
+				50F832F222CA006600DBD0DD /* String+md5.swift */,
+				50F832F322CA006600DBD0DD /* URLResponse+statusIsOK.swift */,
+			);
+			path = Infrastructure;
+			sourceTree = "<group>";
+		};
+		50F832F622CA006600DBD0DD /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				50F832F722CA006600DBD0DD /* CrashReportWindowController.swift */,
+				50F832F822CA006600DBD0DD /* CrashReporterWindow.xib */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -149,6 +192,7 @@
 				TargetAttributes = {
 					50F832D222C9FBD300DBD0DD = {
 						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1020;
 					};
 					50F832DB22C9FBD300DBD0DD = {
 						CreatedOnToolsVersion = 10.2;
@@ -178,6 +222,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50F8330322CA006600DBD0DD /* CrashReporterWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,6 +240,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50F8330122CA006600DBD0DD /* CrashReporter.swift in Sources */,
+				50F8330922CA027B00DBD0DD /* Bundle+InfoKeys.swift in Sources */,
+				50F8330B22CA35B800DBD0DD /* HTTPURLResponse+valueForHTTPHeaderField.swift in Sources */,
+				50F8330222CA006600DBD0DD /* CrashReportWindowController.swift in Sources */,
+				50F832FF22CA006600DBD0DD /* URLResponse+statusIsOK.swift in Sources */,
+				50F8330022CA006600DBD0DD /* OneShotDownload.swift in Sources */,
+				50F8330722CA00F600DBD0DD /* CrashLog.swift in Sources */,
+				50F832FE22CA006600DBD0DD /* String+md5.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -340,6 +393,7 @@
 		50F832E822C9FBD300DBD0DD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -359,6 +413,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = de.christiantietze.CrashReporter;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -366,6 +421,7 @@
 		50F832E922C9FBD300DBD0DD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -392,6 +448,7 @@
 		50F832EB22C9FBD300DBD0DD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = FRMDA3XRGC;
@@ -410,6 +467,7 @@
 		50F832EC22C9FBD300DBD0DD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = FRMDA3XRGC;
