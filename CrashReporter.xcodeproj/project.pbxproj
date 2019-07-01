@@ -23,6 +23,7 @@
 		50F8331822CA3A4100DBD0DD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50F8331622CA3A4100DBD0DD /* MainMenu.xib */; };
 		50F8332222CA823C00DBD0DD /* SendReportsAutomaticallySetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F8332122CA823C00DBD0DD /* SendReportsAutomaticallySetting.swift */; };
 		50F8332422CA828700DBD0DD /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F8332322CA828700DBD0DD /* DefaultsKeys.swift */; };
+		50F8332722CA9B4B00DBD0DD /* SendReportsAutomaticallySettingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F8332622CA9B4B00DBD0DD /* SendReportsAutomaticallySettingTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		50F8331A22CA3A4100DBD0DD /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
 		50F8332122CA823C00DBD0DD /* SendReportsAutomaticallySetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendReportsAutomaticallySetting.swift; sourceTree = "<group>"; };
 		50F8332322CA828700DBD0DD /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
+		50F8332622CA9B4B00DBD0DD /* SendReportsAutomaticallySettingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendReportsAutomaticallySettingTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				50F832E322C9FBD300DBD0DD /* Info.plist */,
+				50F8332622CA9B4B00DBD0DD /* SendReportsAutomaticallySettingTests.swift */,
 			);
 			name = CrashReporterTests;
 			path = Tests/CrashReporterTests;
@@ -257,6 +260,7 @@
 					};
 					50F832DB22C9FBD300DBD0DD = {
 						CreatedOnToolsVersion = 10.2;
+						LastSwiftMigration = 1020;
 					};
 					50F8330F22CA3A3F00DBD0DD = {
 						CreatedOnToolsVersion = 10.2;
@@ -337,6 +341,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				50F8332722CA9B4B00DBD0DD /* SendReportsAutomaticallySettingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -549,6 +554,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Tests/CrashReporterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -558,6 +564,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = de.christiantietze.CrashReporterTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -566,6 +573,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Tests/CrashReporterTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
