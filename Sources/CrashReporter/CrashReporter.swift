@@ -126,7 +126,7 @@ public final class CrashReporter: SendsCrashLog {
         var request = URLRequest(url: crashReporterURL)
         request.httpMethod = "POST"
 
-        let boundary = "0xKhTmLbOuNdArY"
+        let boundary = UUID().uuidString.md5
 
         let contentType = "multipart/form-data; boundary=\(boundary)"
         request.setValue(contentType, forHTTPHeaderField: "Content-Type")
