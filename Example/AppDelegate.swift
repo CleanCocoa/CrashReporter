@@ -29,7 +29,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         privacyPolicyURL: URL(string: "https://example.com/privacy-policy")!)
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        crashReporter.check(alwaysShowCrashReporterWindow: true)
+        crashReporter.check(alwaysShowCrashReporterWindow: false)
     }
 
     /// Cocoa binding-enabled wrapper for the preference setting.
