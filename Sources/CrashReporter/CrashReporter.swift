@@ -136,8 +136,9 @@ public final class CrashReporter: SendsCrashLog {
         request.httpBody = formData
 
         download(request) { (data, result, error) in
-            print(data.flatMap { String(data: $0, encoding: .utf8) })
             // Ignore result of the upload.
+            // Uncomment to debug the server response:
+            // print(data.flatMap { String(data: $0, encoding: .utf8) })
             return
         }
     }
