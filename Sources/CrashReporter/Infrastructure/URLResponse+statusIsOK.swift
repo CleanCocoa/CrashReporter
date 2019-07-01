@@ -6,6 +6,7 @@
 //  Distributed under the MIT License.
 
 import class Foundation.URLResponse
+import class Foundation.HTTPURLResponse
 
 extension URLResponse {
     internal var statusIsOK: Bool {

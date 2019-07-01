@@ -5,6 +5,7 @@
 //  Copyright © 2019 Christian Tietze. All rights reserved.
 //  Distributed under the MIT License.
 
+import struct Foundation.URL
 import struct Foundation.Date
 import class Foundation.NSString
 
