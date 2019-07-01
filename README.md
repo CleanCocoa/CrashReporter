@@ -8,6 +8,10 @@
 
 Your app will crash one day. Be prepared to collect crash data automatically, because not every user is a techno wizard capable of sending you `.crash` files from the built-in Console app.
 
+<div align="center">
+    <a href="assets/reporter-light.png"><img src="assets/reporter-light.png" width="300"/></a>
+    <a href="assets/reporter-dark.png"><img src="assets/reporter-dark.png" width="300"/></a>
+</div>
 
 ## Requirements
 
