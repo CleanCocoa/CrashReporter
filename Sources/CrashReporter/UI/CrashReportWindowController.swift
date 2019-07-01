@@ -13,10 +13,16 @@ protocol SendsCrashLog {
 
 final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
 
-    convenience init(crashLogText: String, crashLogSender: SendsCrashLog) {
+    convenience init(
+        crashLogText: String,
+        crashLogSender: SendsCrashLog,
+        privacyPolicyURL: URL) {
+
         self.init(windowNibName: "CrashReporterWindow")
+
         self.crashLogText = crashLogText
         self.crashLogSender = crashLogSender
+        self.privacyPolicyURL = privacyPolicyURL
     }
 
     override func windowDidLoad() {
@@ -55,6 +61,8 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
     }
 
     // MARK: Model
+
+    internal var privacyPolicyURL: URL?
 
     internal var crashLogText: String? {
         didSet {
@@ -95,5 +103,17 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
 	@IBAction func dontSendCrashReport(_ sender: Any?) {
 		close()
 	}
+
+    override func responds(to aSelector: Selector!) -> Bool {
+        if aSelector == #selector(showPrivacyPolicy(_:)) {
+            return self.privacyPolicyURL != nil
+        }
+        return super.responds(to: aSelector)
+    }
+
+    @IBAction func showPrivacyPolicy(_ sender: Any?) {
+        guard let privacyPolicyURL = self.privacyPolicyURL else { return }
+        NSWorkspace.shared.open(privacyPolicyURL)
+    }
 }
 

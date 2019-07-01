@@ -34,17 +34,21 @@ public final class CrashReporter: SendsCrashLog {
     }
 
     public let crashReporterURL: URL
+    public let privacyPolicyURL: URL
     public let userDefaults: UserDefaults
     public let defaultsKeys: DefaultsKeys
 
     /// - param crashReporterURL: Server endpoint to send the crash log to.
+    /// - param privacyPolicyURL: Web address that points to your privacy policy with details on how you handle crash log data.
     /// - param userDefaults: `UserDefaults` to store the last crash info in. Useful for defaults in app groups. Default is `UserDefaults.standard`.
     /// - param defaultsKeys: Configuration of the defaults keys to use. Default is `DefaultsKeys.standard`.
     public init(
         crashReporterURL: URL,
+        privacyPolicyURL: URL,
         userDefaults: UserDefaults = .standard,
         defaultsKeys: DefaultsKeys = DefaultsKeys.standard) {
         self.crashReporterURL = crashReporterURL
+        self.privacyPolicyURL = privacyPolicyURL
         self.userDefaults = userDefaults
         self.defaultsKeys = defaultsKeys
     }
@@ -148,7 +152,8 @@ public final class CrashReporter: SendsCrashLog {
     internal func runCrashReporterWindow(_ crashLog: CrashLog) {
         self.crashReportWindowController = CrashReportWindowController(
             crashLogText: crashLog.content,
-            crashLogSender: self)
+            crashLogSender: self,
+            privacyPolicyURL: self.privacyPolicyURL)
         self.crashReportWindowController?.showWindow(self)
         self.crashReportWindowController?.window?.makeKeyAndOrderFront(self)
 
