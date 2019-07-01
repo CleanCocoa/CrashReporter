@@ -1,5 +1,6 @@
 # CrashReporter for macOS Apps
 
+[![CI Status](https://img.shields.io/travis/CleanCocoa/CrashReporter.svg?style=flat)](https://travis-ci.org/CleanCocoa/CrashReporter)
 ![Swift 5.0](https://img.shields.io/badge/Swift-5.0-blue.svg?style=flat)
 ![Version](https://img.shields.io/github/tag/CleanCocoa/CrashReporter.svg?style=flat)
 ![License](https://img.shields.io/github/license/CleanCocoa/CrashReporter.svg?style=flat)
