@@ -27,6 +27,7 @@
 		50F832D722C9FBD300DBD0DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50F832DC22C9FBD300DBD0DD /* CrashReporterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CrashReporterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F832E322C9FBD300DBD0DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		50F832ED22C9FFBB00DBD0DD /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +52,7 @@
 		50F832C922C9FBD300DBD0DD = {
 			isa = PBXGroup;
 			children = (
+				50F832ED22C9FFBB00DBD0DD /* LICENSE */,
 				50F832D522C9FBD300DBD0DD /* CrashReporter */,
 				50F832E022C9FBD300DBD0DD /* CrashReporterTests */,
 				50F832D422C9FBD300DBD0DD /* Products */,
