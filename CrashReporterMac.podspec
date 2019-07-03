@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name             = 'CrashReporterMac'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = 'Collects and sends crash reports for macOS applications.'
 
   s.description      = <<-DESC
-                       macOS framework to prompt users to send crash logs after your app has crashes. 
+                       macOS framework to prompt users to send crash logs after your app has crashes.
 
                        Supports automatically sending reports if the user choses to.
                        DESC
