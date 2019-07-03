@@ -44,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		50D1A8AE22CCC7FB007DC81A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		50F832D322C9FBD300DBD0DD /* CrashReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CrashReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F832D622C9FBD300DBD0DD /* CrashReporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CrashReporter.h; sourceTree = "<group>"; };
 		50F832D722C9FBD300DBD0DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,6 +100,7 @@
 		50F832C922C9FBD300DBD0DD = {
 			isa = PBXGroup;
 			children = (
+				50D1A8AE22CCC7FB007DC81A /* README.md */,
 				50F832ED22C9FFBB00DBD0DD /* LICENSE */,
 				50F832D522C9FBD300DBD0DD /* CrashReporter */,
 				50F832E022C9FBD300DBD0DD /* CrashReporterTests */,
