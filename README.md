@@ -35,7 +35,7 @@ For the optional server endpoint script, you'll need PHP 7.x.
     
 ### SwiftPM
 
-    .package(url: "https://github.com/CleanCocoa/CrashReporter", from: "0.1.0")
+    .package(url: "https://github.com/CleanCocoa/CrashReporter", from: "0.2.0")
 
 ### Manual
 
