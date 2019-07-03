@@ -22,7 +22,7 @@
 		50F8331522CA3A4100DBD0DD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 50F8331422CA3A4100DBD0DD /* Assets.xcassets */; };
 		50F8331822CA3A4100DBD0DD /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 50F8331622CA3A4100DBD0DD /* MainMenu.xib */; };
 		50F8332222CA823C00DBD0DD /* SendReportsAutomaticallySetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F8332122CA823C00DBD0DD /* SendReportsAutomaticallySetting.swift */; };
-		50F8332422CA828700DBD0DD /* DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F8332322CA828700DBD0DD /* DefaultsKeys.swift */; };
+		50F8332422CA828700DBD0DD /* CrashReporter+DefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F8332322CA828700DBD0DD /* CrashReporter+DefaultsKeys.swift */; };
 		50F8332722CA9B4B00DBD0DD /* SendReportsAutomaticallySettingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F8332622CA9B4B00DBD0DD /* SendReportsAutomaticallySettingTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -66,7 +66,7 @@
 		50F8331922CA3A4100DBD0DD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		50F8331A22CA3A4100DBD0DD /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
 		50F8332122CA823C00DBD0DD /* SendReportsAutomaticallySetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendReportsAutomaticallySetting.swift; sourceTree = "<group>"; };
-		50F8332322CA828700DBD0DD /* DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsKeys.swift; sourceTree = "<group>"; };
+		50F8332322CA828700DBD0DD /* CrashReporter+DefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CrashReporter+DefaultsKeys.swift"; sourceTree = "<group>"; };
 		50F8332622CA9B4B00DBD0DD /* SendReportsAutomaticallySettingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendReportsAutomaticallySettingTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,9 +122,9 @@
 			children = (
 				50F832D622C9FBD300DBD0DD /* CrashReporter.h */,
 				50F832F522CA006600DBD0DD /* CrashReporter.swift */,
+				50F8332322CA828700DBD0DD /* CrashReporter+DefaultsKeys.swift */,
 				50F8330622CA00F600DBD0DD /* CrashLog.swift */,
 				50F8332122CA823C00DBD0DD /* SendReportsAutomaticallySetting.swift */,
-				50F8332322CA828700DBD0DD /* DefaultsKeys.swift */,
 				50F832F622CA006600DBD0DD /* UI */,
 				50F832F122CA006600DBD0DD /* Infrastructure */,
 				50F832D722C9FBD300DBD0DD /* Info.plist */,
@@ -329,7 +329,7 @@
 				50F8330B22CA35B800DBD0DD /* HTTPURLResponse+valueForHTTPHeaderField.swift in Sources */,
 				50F8330222CA006600DBD0DD /* CrashReportWindowController.swift in Sources */,
 				50F832FF22CA006600DBD0DD /* URLResponse+statusIsOK.swift in Sources */,
-				50F8332422CA828700DBD0DD /* DefaultsKeys.swift in Sources */,
+				50F8332422CA828700DBD0DD /* CrashReporter+DefaultsKeys.swift in Sources */,
 				50F8330022CA006600DBD0DD /* OneShotDownload.swift in Sources */,
 				50F8330722CA00F600DBD0DD /* CrashLog.swift in Sources */,
 				50F8332222CA823C00DBD0DD /* SendReportsAutomaticallySetting.swift in Sources */,

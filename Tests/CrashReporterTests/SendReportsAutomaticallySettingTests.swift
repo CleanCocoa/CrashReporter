@@ -8,7 +8,7 @@ class SendReportsAutomaticallySettingTests: XCTestCase {
 
     func testStandardReusesDefaultsKey() {
         XCTAssertEqual(SendReportsAutomaticallySetting.standard.sendCrashLogsAutomaticallyKey,
-                       DefaultsKeys.standard.sendCrashLogsAutomaticallyKey)
+                       CrashReporter.DefaultsKeys.standard.sendCrashLogsAutomaticallyKey)
     }
 
 }

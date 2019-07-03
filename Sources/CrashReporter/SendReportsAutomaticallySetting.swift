@@ -8,7 +8,7 @@ struct SendReportsAutomaticallySetting {
         return SendReportsAutomaticallySetting(
             isVisible: true,
             userDefaults: .standard,
-            sendCrashLogsAutomaticallyKey: DefaultsKeys.standard.sendCrashLogsAutomaticallyKey)
+            sendCrashLogsAutomaticallyKey: CrashReporter.DefaultsKeys.standard.sendCrashLogsAutomaticallyKey)
     }
 
     let isVisible: Bool
