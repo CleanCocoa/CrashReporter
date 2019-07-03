@@ -47,6 +47,10 @@ function clean($userData) {
     return $userData;
 }
 
+function isEmpty($var) {
+    return !isset($var) || strlen(trim($var)) == 0;
+}
+
 function sendEmailForReportAsFilenameForSender($path, $filename, $userEmail = '') {
     $mail = new PHPMailer(true);
 
@@ -92,9 +96,13 @@ $crashlog = "test crash  log content";
 $app = "test app 2000";
  */
 
-$filename = date("YmdHis") . ' ' . $app . '.crash';
-$userEmail = ''; // TODO: collect sender email from dialog to get back in touch
+if (isEmpty($crashlog) || isEmpty($app)) {
+    header('X-PHP-Response-Code: 401', true, 401);
+    die();
+}
 
+$filename = date("YmdHis") . ' ' . $app . '.crash';
+$userEmail = ''; // TODO: collect sender email to get back in touch
 
 $tmpfile = tmpfile();
 try {
