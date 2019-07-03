@@ -10,7 +10,7 @@ import CommonCrypto
 extension String {
     /// Computes a MD5 hash from the recipient.
     /// Implementation based on <https://stackoverflow.com/a/32166735/1460929>
-    var md5: String {
+    internal var md5: String {
         let length = Int(CC_MD5_DIGEST_LENGTH)
         let messageData = self.data(using: .utf8)!
         var digestData = Data(count: length)

@@ -7,14 +7,14 @@
 
 import Foundation
 
-public typealias OneShotDownloadCallback = (Data?, URLResponse?, Error?) -> Swift.Void
+internal typealias OneShotDownloadCallback = (Data?, URLResponse?, Error?) -> Swift.Void
 
 private final class OneShotDownloadManager {
 
     private let urlSession: URLSession
     fileprivate static let shared = OneShotDownloadManager()
 
-    public init() {
+    init() {
 
         let sessionConfiguration = URLSessionConfiguration.ephemeral
         sessionConfiguration.requestCachePolicy = .reloadIgnoringLocalCacheData
@@ -37,7 +37,7 @@ private final class OneShotDownloadManager {
         urlSession.invalidateAndCancel()
     }
 
-    public func download(_ url: URL, _ callback: @escaping OneShotDownloadCallback) {
+    func download(_ url: URL, _ callback: @escaping OneShotDownloadCallback) {
         let task = urlSession.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async() {
                 callback(data, response, error)
@@ -46,7 +46,7 @@ private final class OneShotDownloadManager {
         task.resume()
     }
 
-    public func download(_ urlRequest: URLRequest, _ callback: @escaping OneShotDownloadCallback) {
+    func download(_ urlRequest: URLRequest, _ callback: @escaping OneShotDownloadCallback) {
         let task = urlSession.dataTask(with: urlRequest) { (data, response, error) in
             DispatchQueue.main.async() {
                 callback(data, response, error)
@@ -59,12 +59,12 @@ private final class OneShotDownloadManager {
 // Call one of these. It’s easier than referring to OneShotDownloadManager.
 // callback is called on the main queue.
 
-public func download(_ url: URL, _ callback: @escaping OneShotDownloadCallback) {
+internal func download(_ url: URL, _ callback: @escaping OneShotDownloadCallback) {
     precondition(Thread.isMainThread)
     OneShotDownloadManager.shared.download(url, callback)
 }
 
-public func download(_ urlRequest: URLRequest, _ callback: @escaping OneShotDownloadCallback) {
+internal func download(_ urlRequest: URLRequest, _ callback: @escaping OneShotDownloadCallback) {
     precondition(Thread.isMainThread)
     OneShotDownloadManager.shared.download(urlRequest, callback)
 }
