@@ -175,7 +175,6 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
             return collectEmailSetting.emailAddress ?? ""
         }
         set {
-            print(newValue)
             collectEmailSetting.emailAddress = newValue
         }
     }
