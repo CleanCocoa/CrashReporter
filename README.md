@@ -57,12 +57,13 @@ The framework does not care what the server does:
 The crash reporter framework will perform a HTTP POST request:
 
 - The `User-Agent` metadata is set to `"\(APP_NAME)-\(VERSION)"` if the values are found in the app's bundle, e.g. `"Sherlock-2.0"`.
-- The `crashlog` variable is to the contents of the `.crash` file the user submits.
+- The `userEmail` variable is either left out or set to the email entered by the user.
+- The `crashlog` variable is set to the contents of the `.crash` file the user submits.
 - The server response will be ignored.
 
 You can roll your own endpoint as long as its URL is reachable from the app.
 
-Or you can use the simple endpoint shipped in this repository! It's located at `php/index.php`. This PHP server script will attempt to email you the crash log as an attachment with a timestamp, e.g. `20190701204853 Sherlock-2.0.crash` (where the timestamp signifies the ISO-formatted date 2019-07-01 20:48:52)
+Or you can use the simple endpoint shipped in this repository! It's located at `php/index.php`. This PHP server script will attempt to email you the crash log as an attachment with a timestamp, e.g. `20190701204853 Sherlock-2.0.crash` (where the timestamp signifies the ISO-formatted date 2019-07-01 20:48:52). If the user enters her email address, she'll receive a copy as CC by default. You can toggle this in the PHP script's frontmatter.
 
 To run the script on your local machine for quick testing, run:
 
@@ -121,11 +122,12 @@ class PreferenceController: NSViewController {
 ## API
 
 - `CrashReporter.check()` is the default call that displays the crash reporter window for the current app if needed, and uploads the crash report to the server.
-- `CrashReporter.check(appName:alwaysShowCrashReporterWindow:)` allows you to control the app name for which the reporter searches `.crash` files. Set `alwaysShowCrashReporterWindow` to `true` if you always want to show the crash reporter window instead of letting the user pick when she sees the window.
+- `CrashReporter.check(appName:collectEmailAddress:alwaysShowCrashReporterWindow:)` allows you to control the app name for which the reporter searches `.crash` files. Set `collectEmailAddress` to false if you don't want to collect the email address of the user to get back to them. Set `alwaysShowCrashReporterWindow` to `true` if you always want to show the crash reporter window instead of letting the user pick when she sees the window.
 - `CrashReporter.sendCrashReportsAutomatically` exposes the user setting of sending reports automatically. Useful for preference panes.
 
 If you don't change the `UserDefaults` keys for the crash reporter settings, use the various `DefaultsKeys.standard` properties in your app to look up the values:
 
+- `emailAddressKey` is `"CRR_emailAddress"`, where the email address of the user is stored
 - `sendCrashLogsAutomaticallyKey` is `"CRR_sendCrashLogsAutomatically"` -- use this for your preference panes to toggle automatically sending crash reports
 - `lastSeenCrashLogTimeSince1970Key` is `"CRR_lastSeenCrashLogTimeSince1970"`
 - `lastSeenCrashLogMD5Key` is `"CRR_lastSeenCrashLogMD5"`
