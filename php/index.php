@@ -39,6 +39,9 @@ require 'vendor/PHPMailer/src/Exception.php';
 require 'vendor/PHPMailer/src/PHPMailer.php';
 require 'vendor/PHPMailer/src/SMTP.php';
 
+function postString($key) {
+    return array_key_exists($key, $_POST) ? $_POST[$key] : '';
+}
 
 function clean($userData) {
     $userData = htmlspecialchars($userData, ENT_IGNORE, 'utf-8');
@@ -87,7 +90,7 @@ function sendEmailForReportAsFilenameForSender($path, $filename, $userEmail = ''
 }
 
 // Collect request data
-$crashlog = $_POST['crashlog'];
+$crashlog = postString('crashlog');
 $app = clean($_SERVER['HTTP_USER_AGENT']);
 
 /*
@@ -102,7 +105,7 @@ if (isEmpty($crashlog) || isEmpty($app)) {
 }
 
 $filename = date("YmdHis") . ' ' . $app . '.crash';
-$userEmail = ''; // TODO: collect sender email to get back in touch
+$userEmail = postString('userEmail');
 
 $tmpfile = tmpfile();
 try {
