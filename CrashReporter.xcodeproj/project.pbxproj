@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5004D23C2426216C00BD5875 /* EmailAddressSettingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5004D23B2426216C00BD5875 /* EmailAddressSettingTests.swift */; };
+		507A3F7B2425F861006A50B6 /* EmailAddressSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A3F7A2425F861006A50B6 /* EmailAddressSetting.swift */; };
 		50F832DD22C9FBD300DBD0DD /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F832D322C9FBD300DBD0DD /* CrashReporter.framework */; };
 		50F832E422C9FBD300DBD0DD /* CrashReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F832D622C9FBD300DBD0DD /* CrashReporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		50F832FE22CA006600DBD0DD /* String+md5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50F832F222CA006600DBD0DD /* String+md5.swift */; };
@@ -44,6 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5004D23B2426216C00BD5875 /* EmailAddressSettingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAddressSettingTests.swift; sourceTree = "<group>"; };
+		507A3F7A2425F861006A50B6 /* EmailAddressSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAddressSetting.swift; sourceTree = "<group>"; };
 		50D1A8AE22CCC7FB007DC81A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		50F832D322C9FBD300DBD0DD /* CrashReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CrashReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		50F832D622C9FBD300DBD0DD /* CrashReporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CrashReporter.h; sourceTree = "<group>"; };
@@ -126,6 +130,7 @@
 				50F832F522CA006600DBD0DD /* CrashReporter.swift */,
 				50F8332322CA828700DBD0DD /* CrashReporter+DefaultsKeys.swift */,
 				50F8330622CA00F600DBD0DD /* CrashLog.swift */,
+				507A3F7A2425F861006A50B6 /* EmailAddressSetting.swift */,
 				50F8332122CA823C00DBD0DD /* SendReportsAutomaticallySetting.swift */,
 				50F832F622CA006600DBD0DD /* UI */,
 				50F832F122CA006600DBD0DD /* Infrastructure */,
@@ -140,6 +145,7 @@
 			children = (
 				50F832E322C9FBD300DBD0DD /* Info.plist */,
 				50F8332622CA9B4B00DBD0DD /* SendReportsAutomaticallySettingTests.swift */,
+				5004D23B2426216C00BD5875 /* EmailAddressSettingTests.swift */,
 			);
 			name = CrashReporterTests;
 			path = Tests/CrashReporterTests;
@@ -336,6 +342,7 @@
 				50F8330722CA00F600DBD0DD /* CrashLog.swift in Sources */,
 				50F8332222CA823C00DBD0DD /* SendReportsAutomaticallySetting.swift in Sources */,
 				50F832FE22CA006600DBD0DD /* String+md5.swift in Sources */,
+				507A3F7B2425F861006A50B6 /* EmailAddressSetting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -343,6 +350,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5004D23C2426216C00BD5875 /* EmailAddressSettingTests.swift in Sources */,
 				50F8332722CA9B4B00DBD0DD /* SendReportsAutomaticallySettingTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
