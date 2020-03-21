@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="15705" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="15705"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CrashReportWindowController" customModule="CrashReporter" customModuleProvider="target">
             <connections>
+                <outlet property="collectEmailContainerView" destination="eP6-Ir-fFJ" id="aAL-v4-DPA"/>
                 <outlet property="dontSendButton" destination="o4V-7L-v6D" id="Sxa-iT-OTj"/>
+                <outlet property="emailAddressLabel" destination="Xnj-T5-Udi" id="NmX-Y1-1vq"/>
+                <outlet property="emailAddressTextField" destination="3xM-Nb-4hh" id="NC8-uy-FnY"/>
+                <outlet property="emailAddressTitleLabel" destination="dOk-kx-oBq" id="klv-0T-QFY"/>
                 <outlet property="sendAutomaticallyCheckbox" destination="MDs-Wi-EiJ" id="rKg-5U-s6o"/>
                 <outlet property="sendAutomaticallyContainerView" destination="7JX-Ab-aSd" id="vWo-Za-2gp"/>
                 <outlet property="sendAutomaticallyLabel" destination="D5D-Vb-5TR" id="nIQ-rB-PXU"/>
@@ -21,14 +26,14 @@
         <window title="Crash Log Reporter" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="251" y="776" width="496" height="498"/>
+            <rect key="contentRect" x="251" y="776" width="496" height="646"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="496" height="498"/>
+                <rect key="frame" x="0.0" y="0.0" width="496" height="646"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QBv-7S-WQv">
-                        <rect key="frame" x="18" y="459" width="460" height="19"/>
+                        <rect key="frame" x="18" y="607" width="460" height="19"/>
                         <textFieldCell key="cell" selectable="YES" title="New Crash Log Found" id="k6r-PA-hYf">
                             <font key="font" size="16" name=".AppleSystemUIFontBold"/>
                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -36,7 +41,7 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="b7P-9Z-RkD">
-                        <rect key="frame" x="18" y="417" width="460" height="34"/>
+                        <rect key="frame" x="18" y="567" width="460" height="32"/>
                         <textFieldCell key="cell" selectable="YES" id="O6E-xl-G55">
                             <font key="font" metaFont="system"/>
                             <string key="title">To help us fix crashing bugs, click Send Crash Log. Below is the text that will be sent to the developers. No other information will be sent.</string>
@@ -45,17 +50,17 @@
                         </textFieldCell>
                     </textField>
                     <scrollView borderType="line" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTe-5f-47F">
-                        <rect key="frame" x="20" y="154" width="456" height="255"/>
+                        <rect key="frame" x="20" y="256" width="456" height="303"/>
                         <clipView key="contentView" copiesOnScroll="NO" id="MeG-49-sPS">
-                            <rect key="frame" x="1" y="1" width="454" height="253"/>
+                            <rect key="frame" x="1" y="1" width="454" height="301"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="hW5-cq-81L">
-                                    <rect key="frame" x="0.0" y="0.0" width="454" height="253"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="454" height="301"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="454" height="253"/>
+                                    <size key="minSize" width="454" height="301"/>
                                     <size key="maxSize" width="456" height="10000000"/>
                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                 </textView>
@@ -67,15 +72,64 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="wLl-nc-XBT">
-                            <rect key="frame" x="439" y="1" width="16" height="253"/>
+                            <rect key="frame" x="439" y="1" width="16" height="301"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="eP6-Ir-fFJ" userLabel="Email Container View">
+                        <rect key="frame" x="20" y="131" width="456" height="105"/>
+                        <subviews>
+                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3xM-Nb-4hh">
+                                <rect key="frame" x="0.0" y="20" width="456" height="21"/>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Email Address (optional)" drawsBackground="YES" usesSingleLineMode="YES" id="HjN-Q4-rQR">
+                                    <font key="font" usesAppearanceFont="YES"/>
+                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                                <connections>
+                                    <binding destination="-2" name="value" keyPath="self.emailAddress" id="jN2-gh-npM">
+                                        <dictionary key="options">
+                                            <bool key="NSConditionallySetsEditable" value="NO"/>
+                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                        </dictionary>
+                                    </binding>
+                                </connections>
+                            </textField>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dOk-kx-oBq">
+                                <rect key="frame" x="-2" y="89" width="180" height="16"/>
+                                <textFieldCell key="cell" lineBreakMode="clipping" title="Optional Contact Information" id="h6e-ob-y0Q">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Xnj-T5-Udi">
+                                <rect key="frame" x="-2" y="49" width="460" height="32"/>
+                                <textFieldCell key="cell" selectable="YES" title="To get back to you and help with a fix for the problem, please provide your email address." id="Nur-Qq-JDS">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="dOk-kx-oBq" firstAttribute="top" secondItem="eP6-Ir-fFJ" secondAttribute="top" id="7HY-vz-LiF"/>
+                            <constraint firstAttribute="trailing" secondItem="Xnj-T5-Udi" secondAttribute="trailing" id="Ckw-fh-2Qb"/>
+                            <constraint firstItem="Xnj-T5-Udi" firstAttribute="leading" secondItem="eP6-Ir-fFJ" secondAttribute="leading" id="LJo-If-m2w"/>
+                            <constraint firstAttribute="bottom" secondItem="3xM-Nb-4hh" secondAttribute="bottom" constant="20" id="SV7-f5-eHA"/>
+                            <constraint firstItem="3xM-Nb-4hh" firstAttribute="leading" secondItem="eP6-Ir-fFJ" secondAttribute="leading" id="g7L-2b-eJ7"/>
+                            <constraint firstItem="3xM-Nb-4hh" firstAttribute="top" secondItem="Xnj-T5-Udi" secondAttribute="bottom" constant="8" id="mob-6x-9MF"/>
+                            <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="dOk-kx-oBq" secondAttribute="trailing" id="tAU-RU-dbV"/>
+                            <constraint firstItem="dOk-kx-oBq" firstAttribute="leading" secondItem="eP6-Ir-fFJ" secondAttribute="leading" id="vDz-kQ-PLA"/>
+                            <constraint firstAttribute="trailing" secondItem="3xM-Nb-4hh" secondAttribute="trailing" id="wfw-lJ-ngM"/>
+                            <constraint firstItem="Xnj-T5-Udi" firstAttribute="top" secondItem="dOk-kx-oBq" secondAttribute="bottom" constant="8" id="z6O-hW-3vU"/>
+                        </constraints>
+                    </customView>
                     <customView horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="7JX-Ab-aSd">
-                        <rect key="frame" x="20" y="41" width="456" height="93"/>
+                        <rect key="frame" x="20" y="41" width="456" height="90"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MDs-Wi-EiJ">
-                                <rect key="frame" x="-2" y="77" width="460" height="18"/>
+                                <rect key="frame" x="-2" y="74" width="460" height="18"/>
                                 <buttonCell key="cell" type="check" title="Send crash reports automatically" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hsB-Hx-Fgs">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -90,7 +144,7 @@
                                 </connections>
                             </button>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5D-Vb-5TR">
-                                <rect key="frame" x="-2" y="20" width="460" height="51"/>
+                                <rect key="frame" x="-2" y="20" width="460" height="48"/>
                                 <textFieldCell key="cell" allowsUndo="NO" id="nou-5k-c1U">
                                     <font key="font" metaFont="system"/>
                                     <string key="title">You can skip this window in the future when you enable automatically sending crash logs. You can also turn this setting on and off in the Preferences.</string>
@@ -109,7 +163,7 @@
                             <constraint firstItem="MDs-Wi-EiJ" firstAttribute="top" secondItem="7JX-Ab-aSd" secondAttribute="top" id="z9F-2V-CvJ"/>
                         </constraints>
                     </customView>
-                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="pgd-B4-8yx">
+                    <customView translatesAutoresizingMaskIntoConstraints="NO" id="pgd-B4-8yx" userLabel="Actions Container View">
                         <rect key="frame" x="20" y="20" width="456" height="21"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fEy-Fg-JhO">
@@ -165,12 +219,15 @@ DQ
                 </subviews>
                 <constraints>
                     <constraint firstItem="QBv-7S-WQv" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" id="0fs-Sv-TK8"/>
+                    <constraint firstItem="eP6-Ir-fFJ" firstAttribute="trailing" secondItem="UTe-5f-47F" secondAttribute="trailing" id="827-dZ-60k"/>
                     <constraint firstAttribute="trailing" secondItem="QBv-7S-WQv" secondAttribute="trailing" constant="20" id="CcL-Ix-apq"/>
                     <constraint firstItem="b7P-9Z-RkD" firstAttribute="top" secondItem="QBv-7S-WQv" secondAttribute="bottom" constant="8" id="Cs6-uc-UtH"/>
-                    <constraint firstItem="7JX-Ab-aSd" firstAttribute="trailing" secondItem="UTe-5f-47F" secondAttribute="trailing" id="KPj-fQ-zcp"/>
-                    <constraint firstItem="7JX-Ab-aSd" firstAttribute="top" secondItem="UTe-5f-47F" secondAttribute="bottom" priority="750" constant="20" id="Mv2-vN-5kT"/>
+                    <constraint firstItem="eP6-Ir-fFJ" firstAttribute="leading" secondItem="UTe-5f-47F" secondAttribute="leading" id="EYT-vY-4im"/>
+                    <constraint firstItem="7JX-Ab-aSd" firstAttribute="trailing" secondItem="eP6-Ir-fFJ" secondAttribute="trailing" id="Nel-x9-x1Z"/>
                     <constraint firstItem="pgd-B4-8yx" firstAttribute="leading" secondItem="7JX-Ab-aSd" secondAttribute="leading" id="WQa-fd-1pf"/>
                     <constraint firstItem="UTe-5f-47F" firstAttribute="top" secondItem="b7P-9Z-RkD" secondAttribute="bottom" constant="8" id="Wra-mK-cVV"/>
+                    <constraint firstItem="eP6-Ir-fFJ" firstAttribute="top" secondItem="UTe-5f-47F" secondAttribute="bottom" priority="750" constant="20" id="aAa-Uf-55E"/>
+                    <constraint firstItem="7JX-Ab-aSd" firstAttribute="leading" secondItem="eP6-Ir-fFJ" secondAttribute="leading" id="afg-4W-E8R"/>
                     <constraint firstItem="pgd-B4-8yx" firstAttribute="top" secondItem="7JX-Ab-aSd" secondAttribute="bottom" id="c5O-rj-AZM"/>
                     <constraint firstItem="UTe-5f-47F" firstAttribute="trailing" secondItem="b7P-9Z-RkD" secondAttribute="trailing" id="e9c-kn-Lfb"/>
                     <constraint firstItem="b7P-9Z-RkD" firstAttribute="leading" secondItem="QBv-7S-WQv" secondAttribute="leading" id="esA-aW-n5S"/>
@@ -178,11 +235,11 @@ DQ
                     <constraint firstItem="UTe-5f-47F" firstAttribute="leading" secondItem="b7P-9Z-RkD" secondAttribute="leading" id="lfD-nz-OT8"/>
                     <constraint firstItem="pgd-B4-8yx" firstAttribute="trailing" secondItem="7JX-Ab-aSd" secondAttribute="trailing" id="mRR-td-KYd"/>
                     <constraint firstItem="b7P-9Z-RkD" firstAttribute="trailing" secondItem="QBv-7S-WQv" secondAttribute="trailing" id="q50-UY-CZ3"/>
-                    <constraint firstItem="7JX-Ab-aSd" firstAttribute="leading" secondItem="UTe-5f-47F" secondAttribute="leading" id="swn-WF-oxA"/>
                     <constraint firstItem="QBv-7S-WQv" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="y9i-HG-NFp"/>
+                    <constraint firstItem="7JX-Ab-aSd" firstAttribute="top" secondItem="eP6-Ir-fFJ" secondAttribute="bottom" id="yGg-V2-vYW"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="121" y="-239"/>
+            <point key="canvasLocation" x="121" y="-165"/>
         </window>
     </objects>
 </document>

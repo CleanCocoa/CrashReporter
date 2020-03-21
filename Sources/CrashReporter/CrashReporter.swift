@@ -7,7 +7,7 @@
 
 import Foundation
 
-public final class CrashReporter: SendsCrashLog {
+public final class CrashReporter {
 
     public let crashReporterURL: URL
     public let privacyPolicyURL: URL
@@ -16,7 +16,8 @@ public final class CrashReporter: SendsCrashLog {
 
     /// Convenience accessor for `sendCrashLogsAutomaticallyKey` defaults.
     ///
-    /// Can be wrapped for KVC/Cocoa bindings in your preference panes when you access it as a `@objc dynamic var`:
+    /// Can be wrapped for KVC/Cocoa bindings in your preference panes when you access it through
+    /// a property wrapping it as a `@objc dynamic var`:
     ///
     ///     let var crashReporter = // ...
     ///     
@@ -85,10 +86,15 @@ public final class CrashReporter: SendsCrashLog {
     ///
     /// Checks for crashes using the `CFBundleName` from the main app bundle as `appName`.
     ///
-    /// - param alwaysShowCrashReporterWindow: Overrides the user setting `shouldSendCrashLogsAutomaticallyKey`. Default is false.
-    public func check(alwaysShowCrashReporterWindow: Bool = false) {
+    /// - Parameters:
+    ///   - collectEmailAddress: Ask users for their email addresses when sending in reports. Default is true.
+    ///   - alwaysShowCrashReporterWindow: Overrides the user setting `shouldSendCrashLogsAutomaticallyKey`. Default is false.
+    /// - Note: When `collectEmailAddress` is disabled, you will not even get previously stored value from user defaults.
+    public func check(collectEmailAddress: Bool = true,
+                      alwaysShowCrashReporterWindow: Bool = false) {
         self.check(
             appName: Bundle.main.infos[.bundleName]!,
+            collectEmailAddress: collectEmailAddress,
             alwaysShowCrashReporterWindow: alwaysShowCrashReporterWindow)
     }
 
@@ -98,9 +104,14 @@ public final class CrashReporter: SendsCrashLog {
     /// upload the report, depending on the `shouldSendCrashLogsAutomaticallyKey`.
     /// Set `alwaysShowCrashReporterWindow` to override this behavior.
     ///
-    /// - param appName: Name of the application to search recent crash reports for.
-    /// - param alwaysShowCrashReporterWindow: Overrides the user setting `shouldSendCrashLogsAutomaticallyKey`. Default is false.
-    public func check(appName: String, alwaysShowCrashReporterWindow: Bool = false) {
+    /// - Parameters:
+    ///   - appName: Name of the application to search recent crash reports for.
+    ///   - collectEmailAddress: Ask users for their email addresses when sending in reports. Default is true.
+    ///   - alwaysShowCrashReporterWindow: Overrides the user setting `shouldSendCrashLogsAutomaticallyKey`. Default is false.
+    /// - Note: When `collectEmailAddress` is disabled, you will not even get previously stored value from user defaults.
+    public func check(appName: String,
+                      collectEmailAddress: Bool = true,
+                      alwaysShowCrashReporterWindow: Bool = false) {
         guard let crashLog = mostRecentCrashInfo(appName: appName)?.crashLog() else { return }
 
         if hasSeen(crashLog) {
@@ -109,9 +120,14 @@ public final class CrashReporter: SendsCrashLog {
         remember(crashLog)
 
         if shouldSendCrashLogsAutomatically && alwaysShowCrashReporterWindow == false {
-            send(crashLogText: crashLog.content)
+            let emailSetting = EmailAddressSetting(isVisible: false, userDefaults: self.userDefaults, emailAddressKey: self.defaultsKeys.emailAddressKey)
+            let emailAddress = collectEmailAddress ? emailSetting.emailAddress : nil
+            send(emailAddress: emailAddress, crashLogText: crashLog.content)
         } else {
-            runCrashReporterWindow(crashLog, hideSendReportsAutomaticallyOption: alwaysShowCrashReporterWindow)
+            runCrashReporterWindow(
+                crashLog: crashLog,
+                hideEmailCollection: !collectEmailAddress,
+                hideSendReportsAutomaticallyOption: alwaysShowCrashReporterWindow)
         }
     }
 
@@ -133,30 +149,16 @@ public final class CrashReporter: SendsCrashLog {
             options: [])
     }
 
-    internal func send(crashLogText: String) {
-        var request = URLRequest(url: crashReporterURL)
-        request.httpMethod = "POST"
-
-        let boundary = UUID().uuidString.md5
-
-        let contentType = "multipart/form-data; boundary=\(boundary)"
-        request.setValue(contentType, forHTTPHeaderField: "Content-Type")
-
-        let formString = "--\(boundary)\r\nContent-Disposition: form-data; name=\"crashlog\"\r\n\r\n\(crashLogText)\r\n--\(boundary)--\r\n"
-        let formData = formString.data(using: .utf8, allowLossyConversion: true)
-        request.httpBody = formData
-
-        download(request) { (data, result, error) in
-            // Ignore result of the upload.
-            // Uncomment to debug the server response:
-            // print(data.flatMap { String(data: $0, encoding: .utf8) })
-            return
-        }
-    }
-
     internal var crashReportWindowController: CrashReportWindowController?
 
-    internal func runCrashReporterWindow(_ crashLog: CrashLog, hideSendReportsAutomaticallyOption: Bool) {
+    internal func runCrashReporterWindow(
+        crashLog: CrashLog,
+        hideEmailCollection: Bool,
+        hideSendReportsAutomaticallyOption: Bool) {
+        let collectEmailSetting = EmailAddressSetting(
+            isVisible: !hideEmailCollection,
+            userDefaults: self.userDefaults,
+            emailAddressKey: self.defaultsKeys.emailAddressKey)
         let sendAutomaticallySetting = SendReportsAutomaticallySetting(
             isVisible: !hideSendReportsAutomaticallyOption,
             userDefaults: self.userDefaults,
@@ -164,8 +166,10 @@ public final class CrashReporter: SendsCrashLog {
 
         self.crashReportWindowController = CrashReportWindowController(
             crashLogText: crashLog.content,
+            // Produces a retain cycle that we'll break when the window closes:
             crashLogSender: self,
             privacyPolicyURL: self.privacyPolicyURL,
+            collectEmailSetting: collectEmailSetting,
             sendReportsAutomaticallySetting: sendAutomaticallySetting)
         self.crashReportWindowController?.showWindow(self)
         self.crashReportWindowController?.window?.makeKeyAndOrderFront(self)
@@ -188,6 +192,62 @@ public final class CrashReporter: SendsCrashLog {
     }
 }
 
+// MARK: - SendsCrashLog
+
+extension CrashReporter: SendsCrashLog {
+    internal func send(emailAddress: String?, crashLogText: String) {
+        var request = URLRequest(url: self.crashReporterURL)
+        request.httpMethod = "POST"
+
+        let boundary = UUID().uuidString.md5
+
+        let contentType = "multipart/form-data; boundary=\(boundary)"
+        request.setValue(contentType, forHTTPHeaderField: "Content-Type")
+
+        let form: [String : String?] = [
+            "userEmail" : emailAddress,
+            "crashlog" : crashLogText
+        ]
+        // See <https://www.w3.org/TR/html401/interact/forms.html#h-17.13.4> for a specification.
+        // Example:
+        //    Content-Type: multipart/form-data; boundary=AaB03x
+        //
+        //    --AaB03x
+        //    Content-Disposition: form-data; name="submit-name"
+        //
+        //    Larry
+        //    --AaB03x
+        //    Content-Disposition: form-data; name="files"; filename="file1.txt"
+        //    Content-Type: text/plain
+        //
+        //    ... contents of file1.txt ...
+        //    --AaB03x--
+        let CRLF = "\r\n"
+        let separator = "--\(boundary)" + CRLF
+        let terminator = "--\(boundary)--" + CRLF
+        let formString =
+            separator
+            + form.compactMap { key, value -> String? in
+                guard let value = value, !value.isEmpty else { return nil }
+                let lines = [
+                    "Content-Disposition: form-data; name=\"\(key)\"",
+                    "", // Key and value are separated by an empty line
+                    value
+                ]
+                return lines.joined(separator: "\r\n") + CRLF
+            }.joined(separator: separator) + CRLF
+            + terminator
+        let formData = formString.data(using: .utf8, allowLossyConversion: true)
+        request.httpBody = formData
+
+        download(request) { (data, response, error) in
+            // Ignore result of the upload.
+            // Uncomment to debug the server response:
+            //print(response, data.flatMap { String(data: $0, encoding: .utf8) })
+            return
+        }
+    }
+}
 
 // MARK: - Crash report file metadata
 

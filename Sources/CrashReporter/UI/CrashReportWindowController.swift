@@ -8,7 +8,7 @@
 import AppKit
 
 protocol SendsCrashLog {
-    func send(crashLogText: String)
+    func send(emailAddress: String?, crashLogText: String)
 }
 
 final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
@@ -17,6 +17,7 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         crashLogText: String,
         crashLogSender: SendsCrashLog,
         privacyPolicyURL: URL,
+        collectEmailSetting: EmailAddressSetting,
         sendReportsAutomaticallySetting: SendReportsAutomaticallySetting) {
 
         self.init(windowNibName: "CrashReporterWindow")
@@ -24,6 +25,7 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         self.crashLogText = crashLogText
         self.crashLogSender = crashLogSender
         self.privacyPolicyURL = privacyPolicyURL
+        self.collectEmailSetting = collectEmailSetting
         self.sendReportsAutomaticallySetting = sendReportsAutomaticallySetting
     }
 
@@ -33,8 +35,9 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         window?.delegate = self
 
         updateCrashLogText()
-        updateButtonStates()
+        updateCollectEmailVisibility()
         updateAutomaticallySendCrashLogVisibility()
+        updateButtonStates()
     }
 
     var onWindowWillClose: ((NSWindow?) -> Void)?
@@ -53,11 +56,29 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
 		}
 	}
 
+    @IBOutlet weak var collectEmailContainerView: NSView!
+    @IBOutlet weak var emailAddressTitleLabel: NSTextField!
+    @IBOutlet weak var emailAddressLabel: NSTextField!
+    @IBOutlet weak var emailAddressTextField: NSTextField!
+
+    lazy var hideCollectEmailConstraint: NSLayoutConstraint = {
+        let containerView = collectEmailContainerView!
+        let constraint = NSLayoutConstraint(
+            item: containerView,
+            attribute: .height,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .height,
+            multiplier: 1,
+            constant: 0)
+        constraint.priority = .required
+        return constraint
+    }()
+
     @IBOutlet weak var sendAutomaticallyContainerView: NSView!
     @IBOutlet weak var sendAutomaticallyCheckbox: NSButton!
     @IBOutlet weak var sendAutomaticallyLabel: NSTextField!
 
-    private var _sendAutomaticallyHide: NSLayoutConstraint?
     lazy var hideSendAutomaticallyConstraint: NSLayoutConstraint = {
         let containerView = sendAutomaticallyContainerView!
         let constraint = NSLayoutConstraint(
@@ -85,6 +106,22 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         dontSendButton?.isEnabled = !didSendCrashLog
     }
 
+    private func updateCollectEmailVisibility() {
+        let isDisabled = self.hideCollectEmail
+        emailAddressTitleLabel?.isHidden = isDisabled
+        emailAddressLabel?.isHidden = isDisabled
+        emailAddressTextField?.isEnabled = !isDisabled
+        emailAddressTextField?.isHidden = isDisabled
+
+        if isDisabled {
+            if !collectEmailContainerView.constraints.contains(hideCollectEmailConstraint) {
+                collectEmailContainerView.addConstraint(hideCollectEmailConstraint)
+            }
+        } else {
+            collectEmailContainerView.removeConstraint(hideCollectEmailConstraint)
+        }
+    }
+
     private func updateAutomaticallySendCrashLogVisibility() {
         let isDisabled = self.hideAutomaticallySend
         sendAutomaticallyCheckbox?.isEnabled = !isDisabled
@@ -101,6 +138,16 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
     }
 
     // MARK: Model
+
+    internal var collectEmailSetting: EmailAddressSetting = .standard {
+        didSet {
+            updateCollectEmailVisibility()
+        }
+    }
+
+    internal var hideCollectEmail: Bool {
+        return !collectEmailSetting.isVisible
+    }
 
     internal var sendReportsAutomaticallySetting: SendReportsAutomaticallySetting = .standard {
         didSet {
@@ -119,6 +166,17 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         }
         set {
             sendReportsAutomaticallySetting.isEnabled = newValue
+        }
+    }
+
+    /// KVC wrapper for `collectEmailSetting.emailAddress`
+    @objc dynamic var emailAddress: String {
+        get {
+            return collectEmailSetting.emailAddress ?? ""
+        }
+        set {
+            print(newValue)
+            collectEmailSetting.emailAddress = newValue
         }
     }
 
@@ -154,7 +212,8 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
             let crashLogText = self.crashLogText,
             let crashLogSender = self.crashLogSender {
 
-            crashLogSender.send(crashLogText: crashLogText)
+            let emailAddress = self.collectEmailSetting.isVisible ? self.emailAddress : nil
+            crashLogSender.send(emailAddress: emailAddress, crashLogText: crashLogText)
 		}
 
 		close()
