@@ -18,6 +18,7 @@ define('SMTP_PORT', 587);
 // Sender of the crash report
 define('SENDER_EMAIL', 'crashreport@example.com');
 define('SENDER_NAME', 'Crash Report Mailer');
+define('SEND_CC_TO_USER', true);
 
 // Recipient of the crash report (you)
 define('SUPPORT_EMAIL', 'support@example.com');
@@ -73,7 +74,7 @@ function sendEmailForReportAsFilenameForSender($path, $filename, $userEmail = ''
     //Recipients
     $mail->setFrom(SENDER_EMAIL, SENDER_NAME);
     $mail->addAddress(SUPPORT_EMAIL, SUPPORT_NAME);
-    if (isset($userEmail) && $userEmail !== '') {
+    if (!isEmpty($userEmail) && SEND_CC_TO_USER) {
         $mail->addCC($userEmail);
     }
 
@@ -82,7 +83,8 @@ function sendEmailForReportAsFilenameForSender($path, $filename, $userEmail = ''
 
     // Content
     $mail->Subject = 'Crash log ' . $filename;
-    $message = 'Crash log processed on ' . date("Y-m-d H:i:s") . "\n\n";
+    $message = 'Crash log processed on ' . date("Y-m-d H:i:s") . "<br>\r\n"
+      . 'Sender: ' . (!isEmpty($userEmail) ? $userEmail : '(unknown)') . "<br>\r\n<br>\r\n";
     $mail->Body    = $message;
     $mail->AltBody = $message;
 
