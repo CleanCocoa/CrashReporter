@@ -89,13 +89,16 @@ public final class CrashReporter {
     /// - Parameters:
     ///   - collectEmailAddress: Ask users for their email addresses when sending in reports. Default is true.
     ///   - alwaysShowCrashReporterWindow: Overrides the user setting `shouldSendCrashLogsAutomaticallyKey`. Default is false.
+    ///   - displayCrashReporterWindowAsModal: Whether to show the window on top of other app windows. Default is false.
     /// - Note: When `collectEmailAddress` is disabled, you will not even get previously stored value from user defaults.
     public func check(collectEmailAddress: Bool = true,
-                      alwaysShowCrashReporterWindow: Bool = false) {
+                      alwaysShowCrashReporterWindow: Bool = false,
+                      displayCrashReporterWindowAsModal: Bool = false) {
         self.check(
             appName: Bundle.main.infos[.bundleName]!,
             collectEmailAddress: collectEmailAddress,
-            alwaysShowCrashReporterWindow: alwaysShowCrashReporterWindow)
+            alwaysShowCrashReporterWindow: alwaysShowCrashReporterWindow,
+            displayCrashReporterWindowAsModal: displayCrashReporterWindowAsModal)
     }
 
     /// Look in ~/Library/Logs/DiagnosticReports/ for a new crash log for `appName`.
@@ -108,10 +111,12 @@ public final class CrashReporter {
     ///   - appName: Name of the application to search recent crash reports for.
     ///   - collectEmailAddress: Ask users for their email addresses when sending in reports. Default is true.
     ///   - alwaysShowCrashReporterWindow: Overrides the user setting `shouldSendCrashLogsAutomaticallyKey`. Default is false.
+    ///   - displayCrashReporterWindowAsModal: Whether to show the window on top of other app windows. Default is false.
     /// - Note: When `collectEmailAddress` is disabled, you will not even get previously stored value from user defaults.
     public func check(appName: String,
                       collectEmailAddress: Bool = true,
-                      alwaysShowCrashReporterWindow: Bool = false) {
+                      alwaysShowCrashReporterWindow: Bool = false,
+                      displayCrashReporterWindowAsModal: Bool = false) {
         guard let crashLog = mostRecentCrashInfo(appName: appName)?.crashLog() else { return }
 
         if hasSeen(crashLog) {
@@ -126,6 +131,7 @@ public final class CrashReporter {
         } else {
             runCrashReporterWindow(
                 crashLog: crashLog,
+                displayAsModal: displayCrashReporterWindowAsModal,
                 hideEmailCollection: !collectEmailAddress,
                 hideSendReportsAutomaticallyOption: alwaysShowCrashReporterWindow)
         }
@@ -153,6 +159,7 @@ public final class CrashReporter {
 
     internal func runCrashReporterWindow(
         crashLog: CrashLog,
+        displayAsModal: Bool,
         hideEmailCollection: Bool,
         hideSendReportsAutomaticallyOption: Bool) {
         let collectEmailSetting = EmailAddressSetting(
@@ -171,12 +178,22 @@ public final class CrashReporter {
             privacyPolicyURL: self.privacyPolicyURL,
             collectEmailSetting: collectEmailSetting,
             sendReportsAutomaticallySetting: sendAutomaticallySetting)
+
+        // Drop reference to window after closing to eventually free memory.
+        // Call this before potentially making the window run in a modal loop.
+        self.crashReportWindowController?.onWindowWillClose = { [unowned self] _ in
+            if displayAsModal {
+                NSApp.stopModal()
+            }
+            self.crashReportWindowController = nil
+        }
+
         self.crashReportWindowController?.showWindow(self)
         self.crashReportWindowController?.window?.makeKeyAndOrderFront(self)
 
-        // Drop reference to window after closing to eventually free memory.
-        self.crashReportWindowController?.onWindowWillClose = { [unowned self] _ in
-            self.crashReportWindowController = nil
+        if displayAsModal,
+            let window = self.crashReportWindowController?.window {
+            NSApp.runModal(for: window)
         }
     }
 

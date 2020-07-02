@@ -30,7 +30,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         crashReporter.check(collectEmailAddress: true,
-                            alwaysShowCrashReporterWindow: false)
+                            alwaysShowCrashReporterWindow: false,
+                            displayCrashReporterWindowAsModal: true)
     }
 
     /// Cocoa binding-enabled wrapper for the preference setting.
