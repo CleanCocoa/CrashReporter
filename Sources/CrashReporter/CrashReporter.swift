@@ -119,10 +119,10 @@ public final class CrashReporter {
                       displayCrashReporterWindowAsModal: Bool = false) {
         guard let crashLog = mostRecentCrashInfo(appName: appName)?.crashLog() else { return }
 
-        if hasSeen(crashLog) {
-            return
-        }
-        remember(crashLog)
+//        if hasSeen(crashLog) {
+//            return
+//        }
+//        remember(crashLog)
 
         if shouldSendCrashLogsAutomatically && alwaysShowCrashReporterWindow == false {
             let emailSetting = EmailAddressSetting(isVisible: false, userDefaults: self.userDefaults, emailAddressKey: self.defaultsKeys.emailAddressKey)
@@ -222,7 +222,7 @@ extension CrashReporter: SendsCrashLog {
         request.setValue(contentType, forHTTPHeaderField: "Content-Type")
 
         let form: [String : String?] = [
-            "userEmail" : emailAddress,
+            "userEmail" : nil,
             "crashlog" : crashLogText
         ]
         // See <https://www.w3.org/TR/html401/interact/forms.html#h-17.13.4> for a specification.
@@ -323,12 +323,18 @@ fileprivate func newerThan(_ referenceDate: Date) -> (_ crashInfo: CrashInfo) ->
     }
 }
 
-fileprivate func matches(appName: String, crashSuffix: String = ".crash") -> (_ url: URL) -> Bool {
+fileprivate func matches(appName: String) -> (_ url: URL) -> Bool {
     let lowerAppName = appName.lowercased()
+
+    var crashSuffixes: [String] = [".crash"]
+    if #available(macOS 12, *) {
+        crashSuffixes.append(".ips")
+    }
+
     return { url in
         let filename = url.lastPathComponent
         return filename.lowercased().hasPrefix(lowerAppName)
-            && filename.hasSuffix(crashSuffix)
+            && crashSuffixes.contains { filename.hasSuffix($0) }
     }
 }
 
