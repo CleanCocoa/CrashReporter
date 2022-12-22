@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'CrashReporterMac'
-  s.version          = '0.2.0'
+  s.version          = '0.4.2'
   s.summary          = 'Collects and sends crash reports for macOS applications.'
 
   s.description      = <<-DESC
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   s.social_media_url = 'https://twitter.com/ctietze'
 
   s.source           = { :git => 'https://github.com/CleanCocoa/CrashReporter.git', :tag => s.version.to_s }
-  s.platform = :macos, '10.11'
+  s.platform = :macos, '10.13'
   s.swift_version = '5'
   s.source_files = 'Sources/**/*.swift'
   s.frameworks = 'Cocoa'
