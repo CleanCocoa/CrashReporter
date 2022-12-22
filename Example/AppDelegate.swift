@@ -58,8 +58,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private func showDebugWarning() {
         let alert = NSAlert()
+        alert.accessoryView = {
+            let imageView = NSImageView(frame: .init(x: 0, y: 0, width: 415, height: 84))
+            imageView.image = NSImage(named: "scheme")!  // Force-try ok in example app :)
+            return imageView
+        }()
         alert.messageText = "Cannot create crash log in DEBUG mode"
-        alert.informativeText = "Change your Example.app scheme in Xcode to not run this with the \"Release\" build configuration and not as Debug Executable."
+        alert.informativeText = "Change your Example.app scheme in Xcode:  run this with the \"Release\" build configuration and disable running as \"Debug Executable\"    ."
         alert.addButton(withTitle: "Continue")
         _ = alert.runModal()
     }
