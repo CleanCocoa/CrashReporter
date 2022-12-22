@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5004D23C2426216C00BD5875 /* EmailAddressSettingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5004D23B2426216C00BD5875 /* EmailAddressSettingTests.swift */; };
+		501E2A65295481500040C497 /* NoClippingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 501E2A64295481500040C497 /* NoClippingView.swift */; };
 		507A3F7B2425F861006A50B6 /* EmailAddressSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 507A3F7A2425F861006A50B6 /* EmailAddressSetting.swift */; };
 		50F832DD22C9FBD300DBD0DD /* CrashReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 50F832D322C9FBD300DBD0DD /* CrashReporter.framework */; };
 		50F832E422C9FBD300DBD0DD /* CrashReporter.h in Headers */ = {isa = PBXBuildFile; fileRef = 50F832D622C9FBD300DBD0DD /* CrashReporter.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		5004D23B2426216C00BD5875 /* EmailAddressSettingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAddressSettingTests.swift; sourceTree = "<group>"; };
+		501E2A64295481500040C497 /* NoClippingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoClippingView.swift; sourceTree = "<group>"; };
 		507A3F7A2425F861006A50B6 /* EmailAddressSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailAddressSetting.swift; sourceTree = "<group>"; };
 		50D1A8AE22CCC7FB007DC81A /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		50F832D322C9FBD300DBD0DD /* CrashReporter.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CrashReporter.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				50F832F722CA006600DBD0DD /* CrashReportWindowController.swift */,
+				501E2A64295481500040C497 /* NoClippingView.swift */,
 				50F832F822CA006600DBD0DD /* CrashReporterWindow.xib */,
 			);
 			path = UI;
@@ -333,6 +336,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				50F8330122CA006600DBD0DD /* CrashReporter.swift in Sources */,
+				501E2A65295481500040C497 /* NoClippingView.swift in Sources */,
 				50F8330922CA027B00DBD0DD /* Bundle+InfoKeys.swift in Sources */,
 				50F8330B22CA35B800DBD0DD /* HTTPURLResponse+valueForHTTPHeaderField.swift in Sources */,
 				50F8330222CA006600DBD0DD /* CrashReportWindowController.swift in Sources */,
