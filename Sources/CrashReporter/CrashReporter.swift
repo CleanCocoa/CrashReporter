@@ -5,7 +5,7 @@
 //  Copyright © 2019 Christian Tietze. All rights reserved.
 //  Distributed under the MIT License.
 
-import Foundation
+import AppKit
 
 public final class CrashReporter {
 
