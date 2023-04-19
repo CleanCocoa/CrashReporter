@@ -17,7 +17,7 @@ import CrashReporter
 
 
 /// Assuming you run the server script from `php -S 127.0.0.1:3333`.
-let crashReporterURL = URL(string: "https://crashreport.christiantietze.de/")!
+let crashReporterURL = URL(string: "http://127.0.0.1:3333/")!
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {

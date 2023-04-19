@@ -119,10 +119,10 @@ public final class CrashReporter {
                       displayCrashReporterWindowAsModal: Bool = false) {
         guard let crashLog = mostRecentCrashInfo(appName: appName)?.crashLog() else { return }
 
-//        if hasSeen(crashLog) {
-//            return
-//        }
-//        remember(crashLog)
+        if hasSeen(crashLog) {
+            return
+        }
+        remember(crashLog)
 
         if shouldSendCrashLogsAutomatically && alwaysShowCrashReporterWindow == false {
             let emailSetting = EmailAddressSetting(isVisible: false, userDefaults: self.userDefaults, emailAddressKey: self.defaultsKeys.emailAddressKey)
@@ -222,7 +222,7 @@ extension CrashReporter: SendsCrashLog {
         request.setValue(contentType, forHTTPHeaderField: "Content-Type")
 
         let form: [String : String?] = [
-            "userEmail" : nil,
+            "userEmail" : emailAddress,
             "crashlog" : crashLogText
         ]
         // See <https://www.w3.org/TR/html401/interact/forms.html#h-17.13.4> for a specification.
