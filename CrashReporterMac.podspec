@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'CrashReporterMac'
-  s.version          = '0.4.2'
+  s.version          = '0.4.5'
   s.summary          = 'Collects and sends crash reports for macOS applications.'
 
   s.description      = <<-DESC
