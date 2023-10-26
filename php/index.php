@@ -14,6 +14,7 @@ define('SMTP_HOST', 'smtp.example.com');
 define('SMTP_USER', 'your-user-name');
 define('SMTP_PASS', 'your-smtp-password');
 define('SMTP_PORT', 587);
+define('SMTP_SECURE', 'tls'); // 'ssl' or 'tls'
 
 // Sender of the crash report
 define('SENDER_EMAIL', 'crashreport@example.com');
@@ -68,7 +69,7 @@ function sendEmailForReportAsFilenameForSender($path, $filename, $userEmail = ''
     $mail->SMTPAuth   = True;
     $mail->Username   = SMTP_USER;
     $mail->Password   = SMTP_PASS;
-    $mail->SMTPSecure = 'tls';
+    $mail->SMTPSecure = SMTP_SECURE;
     $mail->Port       = SMTP_PORT;
 
     //Recipients
