@@ -107,7 +107,8 @@ if (isEmpty($crashlog) || isEmpty($app)) {
     die();
 }
 
-$filename = date("YmdHis") . ' ' . $app . '.crash';
+$logIsJSON = $crashlog[0] == '{';
+$filename = date("YmdHis") . ' ' . $app . ($logIsJSON ? '.ips' : '.crash');
 $userEmail = postString('userEmail');
 
 $tmpfile = tmpfile();
