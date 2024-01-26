@@ -56,7 +56,7 @@ function isEmpty($var) {
     return !isset($var) || strlen(trim($var)) == 0;
 }
 
-function sendEmailForReportAsFilenameForSender($path, $filename, $userEmail = '') {
+function sendEmailForReportAsFilenameForSender($path, $filename, $app, $userEmail = '') {
     $mail = new PHPMailer(true);
 
     //Server settings
@@ -83,9 +83,11 @@ function sendEmailForReportAsFilenameForSender($path, $filename, $userEmail = ''
     $mail->addAttachment($path, $filename);
 
     // Content
-    $mail->Subject = 'Crash log ' . $filename;
-    $message = 'Crash log processed on ' . date("Y-m-d H:i:s") . "<br>\r\n"
-      . 'Sender: ' . (!isEmpty($userEmail) ? $userEmail : '(unknown)') . "<br>\r\n<br>\r\n";
+    $mail->Subject = $app . ' crash log' . (!isEmpty($userEmail) ? ' from ' . $userEmail : '');
+    
+    $message = 'Processed on: ' . date("Y-m-d H:i:s") . "<br>\r\n"
+      . 'App: ' . $app . "<br>\r\n"
+      . 'Sender: ' . (!isEmpty($userEmail) ? $userEmail : 'unknown') . "<br>\r\n<br>\r\n";
     $mail->Body    = $message;
     $mail->AltBody = $message;
 
@@ -107,7 +109,8 @@ if (isEmpty($crashlog) || isEmpty($app)) {
     die();
 }
 
-$filename = date("YmdHis") . ' ' . $app . '.crash';
+$logIsJSON = $crashlog[0] == '{';
+$filename = date("Y-m-d H.i.s") . ' ' . $app . ($logIsJSON ? '.ips' : '.crash');
 $userEmail = postString('userEmail');
 
 $tmpfile = tmpfile();
@@ -117,7 +120,7 @@ try {
     fseek($tmpfile, 0);
     $path = stream_get_meta_data($tmpfile)['uri'];
 
-    sendEmailForReportAsFilenameForSender($path, $filename, $userEmail);
+    sendEmailForReportAsFilenameForSender($path, $filename, $app, $userEmail);
 } catch (Exception $e) { // PHPMailer exception
     header('X-PHP-Response-Code: 400', true, 400);
     echo($e->getMessage());
