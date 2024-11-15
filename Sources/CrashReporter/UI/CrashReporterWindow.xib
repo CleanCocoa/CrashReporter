@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="21507" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="23504" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="21507"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="23504"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -26,12 +27,12 @@
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
             <rect key="contentRect" x="251" y="776" width="496" height="646"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="3440" height="1415"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="2304" height="1271"/>
             <view key="contentView" wantsLayer="YES" id="EiT-Mj-1SZ">
                 <rect key="frame" x="0.0" y="0.0" width="496" height="646"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QBv-7S-WQv">
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QBv-7S-WQv">
                         <rect key="frame" x="18" y="607" width="460" height="19"/>
                         <textFieldCell key="cell" selectable="YES" title="New Crash Log Found" id="k6r-PA-hYf">
                             <font key="font" metaFont="systemBold" size="16"/>
@@ -39,7 +40,7 @@
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                         </textFieldCell>
                     </textField>
-                    <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="b7P-9Z-RkD">
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="b7P-9Z-RkD">
                         <rect key="frame" x="18" y="567" width="460" height="32"/>
                         <textFieldCell key="cell" selectable="YES" id="O6E-xl-G55">
                             <font key="font" metaFont="system"/>
@@ -78,7 +79,7 @@
                     <customView translatesAutoresizingMaskIntoConstraints="NO" id="eP6-Ir-fFJ" userLabel="Email Container View" customClass="NoClippingView" customModule="CrashReporter" customModuleProvider="target">
                         <rect key="frame" x="20" y="132" width="456" height="105"/>
                         <subviews>
-                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3xM-Nb-4hh">
+                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3xM-Nb-4hh">
                                 <rect key="frame" x="0.0" y="20" width="456" height="21"/>
                                 <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Email Address (optional)" drawsBackground="YES" usesSingleLineMode="YES" id="HjN-Q4-rQR">
                                     <font key="font" usesAppearanceFont="YES"/>
@@ -94,7 +95,7 @@
                                     </binding>
                                 </connections>
                             </textField>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dOk-kx-oBq">
+                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dOk-kx-oBq">
                                 <rect key="frame" x="-2" y="89" width="180" height="16"/>
                                 <textFieldCell key="cell" lineBreakMode="clipping" title="Optional Contact Information" id="h6e-ob-y0Q">
                                     <font key="font" metaFont="system"/>
@@ -102,7 +103,7 @@
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 </textFieldCell>
                             </textField>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Xnj-T5-Udi">
+                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Xnj-T5-Udi">
                                 <rect key="frame" x="-2" y="49" width="460" height="32"/>
                                 <textFieldCell key="cell" selectable="YES" title="To get back to you and help with a fix for the problem, please provide your email address." id="Nur-Qq-JDS">
                                     <font key="font" metaFont="system"/>
@@ -142,7 +143,7 @@
                                     </binding>
                                 </connections>
                             </button>
-                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5D-Vb-5TR">
+                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5D-Vb-5TR">
                                 <rect key="frame" x="-2" y="20" width="460" height="48"/>
                                 <textFieldCell key="cell" allowsUndo="NO" id="nou-5k-c1U">
                                     <font key="font" metaFont="system"/>
