@@ -19,14 +19,21 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         privacyPolicyURL: URL,
         collectEmailSetting: EmailAddressSetting,
         sendReportsAutomaticallySetting: SendReportsAutomaticallySetting) {
+		self.init()
 
-        self.init(windowNibName: "CrashReporterWindow")
+		var nibTopLevelObjects: NSArray?
+		CrashReporterBundle.loadNibNamed("CrashReporterWindow", owner: self, topLevelObjects: &nibTopLevelObjects)
+		self.window = nibTopLevelObjects?.lazy.compactMap({ $0 as? NSWindow }).first
 
         self.crashLogText = crashLogText
         self.crashLogSender = crashLogSender
         self.privacyPolicyURL = privacyPolicyURL
         self.collectEmailSetting = collectEmailSetting
         self.sendReportsAutomaticallySetting = sendReportsAutomaticallySetting
+		
+		// Replicate default init behavior
+		window?.delegate = self
+		windowDidLoad()
     }
 
     override func windowDidLoad() {
