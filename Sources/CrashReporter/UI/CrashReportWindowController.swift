@@ -60,41 +60,7 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
     }
 
     @IBOutlet weak var collectEmailContainerView: NSView!
-    @IBOutlet weak var emailAddressTitleLabel: NSTextField!
-    @IBOutlet weak var emailAddressLabel: NSTextField!
-    @IBOutlet weak var emailAddressTextField: NSTextField!
-
-    lazy var hideCollectEmailConstraint: NSLayoutConstraint = {
-        let containerView = collectEmailContainerView!
-        let constraint = NSLayoutConstraint(
-            item: containerView,
-            attribute: .height,
-            relatedBy: .equal,
-            toItem: nil,
-            attribute: .height,
-            multiplier: 1,
-            constant: 0)
-        constraint.priority = .required
-        return constraint
-    }()
-
     @IBOutlet weak var sendAutomaticallyContainerView: NSView!
-    @IBOutlet weak var sendAutomaticallyCheckbox: NSButton!
-    @IBOutlet weak var sendAutomaticallyLabel: NSTextField!
-
-    lazy var hideSendAutomaticallyConstraint: NSLayoutConstraint = {
-        let containerView = sendAutomaticallyContainerView!
-        let constraint = NSLayoutConstraint(
-            item: containerView,
-            attribute: .height,
-            relatedBy: .equal,
-            toItem: nil,
-            attribute: .height,
-            multiplier: 1,
-            constant: 0)
-        constraint.priority = .required
-        return constraint
-    }()
 
     @IBOutlet var sendCrashLogButton: NSButton!
     @IBOutlet var dontSendButton: NSButton!
@@ -110,35 +76,11 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
     }
 
     private func updateCollectEmailVisibility() {
-        let isDisabled = self.hideCollectEmail
-        emailAddressTitleLabel?.isHidden = isDisabled
-        emailAddressLabel?.isHidden = isDisabled
-        emailAddressTextField?.isEnabled = !isDisabled
-        emailAddressTextField?.isHidden = isDisabled
-
-        if isDisabled {
-            if !collectEmailContainerView.constraints.contains(hideCollectEmailConstraint) {
-                collectEmailContainerView.addConstraint(hideCollectEmailConstraint)
-            }
-        } else {
-            collectEmailContainerView.removeConstraint(hideCollectEmailConstraint)
-        }
+        collectEmailContainerView.isHidden = self.hideCollectEmail
     }
 
     private func updateAutomaticallySendCrashLogVisibility() {
-        let isDisabled = self.hideAutomaticallySend
-        sendAutomaticallyCheckbox?.isEnabled = !isDisabled
-        sendAutomaticallyCheckbox?.isHidden = isDisabled
-        sendAutomaticallyLabel?.isHidden = isDisabled
-
-        if isDisabled {
-            if !sendAutomaticallyContainerView.constraints.contains(hideSendAutomaticallyConstraint)
-            {
-                sendAutomaticallyContainerView.addConstraint(hideSendAutomaticallyConstraint)
-            }
-        } else {
-            sendAutomaticallyContainerView.removeConstraint(hideSendAutomaticallyConstraint)
-        }
+        sendAutomaticallyContainerView.isHidden = self.hideAutomaticallySend
     }
 
     // MARK: Model
