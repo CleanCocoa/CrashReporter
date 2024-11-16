@@ -31,13 +31,7 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         self.collectEmailSetting = collectEmailSetting
         self.sendReportsAutomaticallySetting = sendReportsAutomaticallySetting
 		
-		// Replicate default init behavior
-		window?.delegate = self
-		windowDidLoad()
-    }
-
-    override func windowDidLoad() {
-        super.windowDidLoad()
+		// Setup window
         window?.center()
         window?.delegate = self
 
