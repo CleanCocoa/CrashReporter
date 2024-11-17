@@ -8,7 +8,7 @@
 import AppKit
 
 protocol SendsCrashLog {
-    func send(emailAddress: String?, crashLogText: String)
+    func send(emailAddress: String?, userProvidedDetails: String?, crashLogText: String)
 }
 
 final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
@@ -152,6 +152,8 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
             collectEmailSetting.emailAddress = newValue
         }
     }
+    
+    @objc dynamic var userProvidedDetails = ""
 
     internal var privacyPolicyURL: URL?
 
@@ -187,7 +189,7 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         {
 
             let emailAddress = self.collectEmailSetting.isVisible ? self.emailAddress : nil
-            crashLogSender.send(emailAddress: emailAddress, crashLogText: crashLogText)
+            crashLogSender.send(emailAddress: emailAddress, userProvidedDetails: userProvidedDetails, crashLogText: crashLogText)
         }
 
         close()

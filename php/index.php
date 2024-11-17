@@ -56,7 +56,7 @@ function isEmpty($var) {
     return !isset($var) || strlen(trim($var)) == 0;
 }
 
-function sendEmailForReportAsFilenameForSender($path, $filename, $app, $userEmail = '') {
+function sendEmailForReportAsFilenameForSender($path, $filename, $app, $userProvidedDetails = '', $userEmail = '') {
     $mail = new PHPMailer(true);
 
     //Server settings
@@ -87,7 +87,8 @@ function sendEmailForReportAsFilenameForSender($path, $filename, $app, $userEmai
     
     $message = '<b>Processed on:</b> ' . date("Y-m-d H:i:s") . "<br>\r\n"
       . '<b>App:</b> ' . $app . "<br>\r\n"
-      . '<b>Sender:</b> ' . (!isEmpty($userEmail) ? clean($userEmail) : 'unknown') . "<br>\r\n<br>\r\n";
+      . '<b>Sender:</b> ' . (!isEmpty($userEmail) ? clean($userEmail) : 'unknown') . "<br>\r\n<br>\r\n"
+      . (!isEmpty($userProvidedDetails) ? "<b>User-provided details:</b>\r\n<pre>" . $userProvidedDetails . "</pre><br>\r\n" : '');
     $mail->Body    = $message;
     $mail->AltBody = $message;
 
@@ -96,6 +97,7 @@ function sendEmailForReportAsFilenameForSender($path, $filename, $app, $userEmai
 
 // Collect request data
 $crashlog = postString('crashlog');
+$userProvidedDetails = clean(postString('userProvidedDetails'));
 $app = clean($_SERVER['HTTP_USER_AGENT']);
 
 /*
@@ -120,7 +122,7 @@ try {
     fseek($tmpfile, 0);
     $path = stream_get_meta_data($tmpfile)['uri'];
 
-    sendEmailForReportAsFilenameForSender($path, $filename, $app, $userEmail);
+    sendEmailForReportAsFilenameForSender($path, $filename, $app, $userProvidedDetails, $userEmail);
 } catch (Exception $e) { // PHPMailer exception
     header('X-PHP-Response-Code: 400', true, 400);
     echo($e->getMessage());
