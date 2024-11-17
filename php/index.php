@@ -83,11 +83,11 @@ function sendEmailForReportAsFilenameForSender($path, $filename, $app, $userEmai
     $mail->addAttachment($path, $filename);
 
     // Content
-    $mail->Subject = $app . ' crash log' . (!isEmpty($userEmail) ? ' from ' . $userEmail : '');
+    $mail->Subject = $app . ' crash log' . (!isEmpty($userEmail) ? ' from ' . clean($userEmail) : '');
     
-    $message = 'Processed on: ' . date("Y-m-d H:i:s") . "<br>\r\n"
-      . 'App: ' . $app . "<br>\r\n"
-      . 'Sender: ' . (!isEmpty($userEmail) ? $userEmail : 'unknown') . "<br>\r\n<br>\r\n";
+    $message = '<b>Processed on:</b> ' . date("Y-m-d H:i:s") . "<br>\r\n"
+      . '<b>App:</b> ' . $app . "<br>\r\n"
+      . '<b>Sender:</b> ' . (!isEmpty($userEmail) ? clean($userEmail) : 'unknown') . "<br>\r\n<br>\r\n";
     $mail->Body    = $message;
     $mail->AltBody = $message;
 
