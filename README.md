@@ -10,8 +10,8 @@
 Your app will crash one day. Be prepared to collect crash data automatically, because not every user is a techno wizard capable of sending you `.crash` files from the built-in Console app.
 
 <div align="center">
-    <a href="assets/reporter-light.png"><img src="assets/reporter-light.png" width="300"/></a>
-    <a href="assets/reporter-dark.png"><img src="assets/reporter-dark.png" width="300"/></a>
+    <a href="assets/reporter-light.png"><img src="assets/reporter-light.png" width="300" height="224"/></a>
+    <a href="assets/reporter-dark.png"><img src="assets/reporter-dark.png" width="300" height="224"/></a>
 </div>
 
 ## Requirements
@@ -58,6 +58,7 @@ The crash reporter framework will perform a HTTP POST request:
 
 - The `User-Agent` metadata is set to `"\(APP_NAME)-\(VERSION)"` if the values are found in the app's bundle, e.g. `"Sherlock-2.0"`.
 - The `userEmail` variable is either left out or set to the email entered by the user.
+- The `userProvidedDetails` variable is either left out or set to the details entered by the user.
 - The `crashlog` variable is set to the contents of the `.crash` file the user submits.
 - The server response will be ignored.
 
