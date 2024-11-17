@@ -40,6 +40,7 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
 
         window?.title = "\(appName) Crash Reporter"
         titleLabel.stringValue = "\(appName) quit unexpectedly."
+        crashLogContainerView.isHidden = true
 
         updateCrashLogText()
         updateCollectEmailVisibility()
@@ -80,10 +81,12 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
     @IBOutlet var bodyLabel: NSTextField!
 
     @IBOutlet weak var collectEmailContainerView: NSView!
+    @IBOutlet weak var crashLogContainerView: NSView!
     @IBOutlet weak var sendAutomaticallyContainerView: NSView!
 
     @IBOutlet var sendCrashLogButton: NSButton!
     @IBOutlet var dontSendButton: NSButton!
+    @IBOutlet var toggleCrashLogButton: NSButton!
 
     private func updateCrashLogText() {
         guard let textView = self.textView else { return }
@@ -204,5 +207,11 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
     @IBAction func showPrivacyPolicy(_ sender: Any?) {
         guard let privacyPolicyURL = self.privacyPolicyURL else { return }
         NSWorkspace.shared.open(privacyPolicyURL)
+    }
+
+    @IBAction func toggleCrashLog(_ sender: Any?) {
+        crashLogContainerView.isHidden = !crashLogContainerView.isHidden
+        toggleCrashLogButton.title =
+            crashLogContainerView.isHidden ? "Show Details" : "Hide Details"
     }
 }
