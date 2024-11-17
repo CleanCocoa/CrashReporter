@@ -130,6 +130,7 @@ public final class CrashReporter {
             send(emailAddress: emailAddress, crashLogText: crashLog.content)
         } else {
             runCrashReporterWindow(
+                appName: appName,
                 crashLog: crashLog,
                 displayAsModal: displayCrashReporterWindowAsModal,
                 hideEmailCollection: !collectEmailAddress,
@@ -158,6 +159,7 @@ public final class CrashReporter {
     internal var crashReportWindowController: CrashReportWindowController?
 
     internal func runCrashReporterWindow(
+        appName: String,
         crashLog: CrashLog,
         displayAsModal: Bool,
         hideEmailCollection: Bool,
@@ -172,6 +174,7 @@ public final class CrashReporter {
             sendCrashLogsAutomaticallyKey: self.defaultsKeys.sendCrashLogsAutomaticallyKey)
 
         self.crashReportWindowController = CrashReportWindowController(
+            appName: appName,
             crashLogText: crashLog.content,
             // Produces a retain cycle that we'll break when the window closes:
             crashLogSender: self,

@@ -14,6 +14,7 @@ protocol SendsCrashLog {
 final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
 
     convenience init(
+        appName: String,
         crashLogText: String,
         crashLogSender: SendsCrashLog,
         privacyPolicyURL: URL,
@@ -36,6 +37,9 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         // Setup window
         window?.center()
         window?.delegate = self
+
+        window?.title = "\(appName) Crash Reporter"
+        titleLabel.stringValue = "\(appName) quit unexpectedly."
 
         updateCrashLogText()
         updateCollectEmailVisibility()
@@ -72,6 +76,8 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
     }
 
     @IBOutlet var warningImageView: NSImageView!
+    @IBOutlet var titleLabel: NSTextField!
+    @IBOutlet var bodyLabel: NSTextField!
 
     @IBOutlet weak var collectEmailContainerView: NSView!
     @IBOutlet weak var sendAutomaticallyContainerView: NSView!
@@ -91,6 +97,11 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
 
     private func updateCollectEmailVisibility() {
         collectEmailContainerView.isHidden = self.hideCollectEmail
+        bodyLabel.stringValue =
+            "Help us fix crashes by submitting this crash report."
+            + (self.hideCollectEmail
+                ? ""
+                : " You can include your email address if you agree to being contacted for more details.")
     }
 
     private func updateAutomaticallySendCrashLogVisibility() {
