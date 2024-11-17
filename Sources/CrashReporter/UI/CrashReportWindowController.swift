@@ -41,6 +41,18 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         updateCollectEmailVisibility()
         updateAutomaticallySendCrashLogVisibility()
         updateButtonStates()
+
+        if let diagnosticsReporterURL = NSWorkspace.shared.urlForApplication(
+            withBundleIdentifier: "com.apple.DiagnosticsReporter")
+        {
+            let diagnosticsReporterIcon = NSWorkspace.shared.icon(
+                forFile: diagnosticsReporterURL.path)
+            diagnosticsReporterIcon.size = CGSize(width: 64, height: 64)
+
+            warningImageView.image = diagnosticsReporterIcon
+        } else {
+            warningImageView.imageAlignment = .alignTopRight
+        }
     }
 
     var onWindowWillClose: ((NSWindow?) -> Void)?
@@ -58,6 +70,8 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
             updateCrashLogText()
         }
     }
+
+    @IBOutlet var warningImageView: NSImageView!
 
     @IBOutlet weak var collectEmailContainerView: NSView!
     @IBOutlet weak var sendAutomaticallyContainerView: NSView!

@@ -13,6 +13,7 @@
                 <outlet property="sendAutomaticallyContainerView" destination="e3N-m3-R3r" id="yCT-vd-HH7"/>
                 <outlet property="sendCrashLogButton" destination="fcK-kG-dtY" id="T04-pD-qZq"/>
                 <outlet property="textView" destination="hW5-cq-81L" id="RLj-Ti-pGC"/>
+                <outlet property="warningImageView" destination="WRQ-hC-NnI" id="MXc-r7-Oyv"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="4kq-h9-osI"/>
             </connections>
         </customObject>
@@ -21,212 +22,240 @@
         <window title="Crash Log Reporter" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" visibleAtLaunch="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="251" y="776" width="496" height="646"/>
+            <rect key="contentRect" x="251" y="776" width="796" height="605"/>
             <rect key="screenRect" x="0.0" y="0.0" width="2304" height="1271"/>
             <view key="contentView" wantsLayer="YES" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="496" height="646"/>
+                <rect key="frame" x="0.0" y="0.0" width="700" height="614"/>
                 <subviews>
-                    <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JpW-k4-7WH">
-                        <rect key="frame" x="20" y="20" width="456" height="606"/>
+                    <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i3a-mL-Wxm">
+                        <rect key="frame" x="20" y="20" width="660" height="574"/>
                         <subviews>
-                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EjW-y9-UMn">
-                                <rect key="frame" x="0.0" y="237" width="456" height="369"/>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WRQ-hC-NnI">
+                                <rect key="frame" x="0.0" y="510" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="gQb-V0-vxs"/>
+                                    <constraint firstAttribute="width" constant="64" id="p29-7P-z1f"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSCaution" id="Stm-g2-78O"/>
+                            </imageView>
+                            <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JpW-k4-7WH">
+                                <rect key="frame" x="84" y="0.0" width="576" height="574"/>
                                 <subviews>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QBv-7S-WQv">
-                                        <rect key="frame" x="-2" y="350" width="173" height="19"/>
-                                        <textFieldCell key="cell" selectable="YES" title="New Crash Log Found" id="k6r-PA-hYf">
-                                            <font key="font" metaFont="systemBold" size="16"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="b7P-9Z-RkD">
-                                        <rect key="frame" x="-2" y="310" width="460" height="32"/>
-                                        <textFieldCell key="cell" selectable="YES" id="O6E-xl-G55">
-                                            <font key="font" metaFont="system"/>
-                                            <string key="title">To help us fix crashing bugs, click Send Crash Log. Below is the text that will be sent to the developers. No other information will be sent.</string>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <scrollView borderType="line" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTe-5f-47F">
-                                        <rect key="frame" x="0.0" y="0.0" width="456" height="302"/>
-                                        <clipView key="contentView" copiesOnScroll="NO" id="MeG-49-sPS">
-                                            <rect key="frame" x="1" y="1" width="454" height="300"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <subviews>
-                                                <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="hW5-cq-81L">
-                                                    <rect key="frame" x="0.0" y="0.0" width="454" height="300"/>
-                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="EjW-y9-UMn">
+                                        <rect key="frame" x="0.0" y="205" width="576" height="369"/>
+                                        <subviews>
+                                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="QBv-7S-WQv">
+                                                <rect key="frame" x="-2" y="350" width="173" height="19"/>
+                                                <textFieldCell key="cell" selectable="YES" title="New Crash Log Found" id="k6r-PA-hYf">
+                                                    <font key="font" metaFont="systemBold" size="16"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                    <size key="minSize" width="454" height="300"/>
-                                                    <size key="maxSize" width="456" height="10000000"/>
-                                                    <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                </textView>
-                                            </subviews>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </clipView>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="302" id="dai-nw-90h"/>
-                                        </constraints>
-                                        <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="tAG-cm-bBU">
-                                            <rect key="frame" x="-100" y="-100" width="454" height="16"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </scroller>
-                                        <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="wLl-nc-XBT">
-                                            <rect key="frame" x="439" y="1" width="16" height="300"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </scroller>
-                                    </scrollView>
-                                </subviews>
-                                <visibilityPriorities>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                </visibilityPriorities>
-                                <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                </customSpacing>
-                            </stackView>
-                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kPE-Kd-1NL" userLabel="Email Container View">
-                                <rect key="frame" x="0.0" y="132" width="456" height="85"/>
-                                <subviews>
-                                    <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dOk-kx-oBq">
-                                        <rect key="frame" x="-2" y="69" width="180" height="16"/>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Optional Contact Information" id="h6e-ob-y0Q">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Xnj-T5-Udi">
-                                        <rect key="frame" x="-2" y="29" width="460" height="32"/>
-                                        <textFieldCell key="cell" selectable="YES" title="To get back to you and help with a fix for the problem, please provide your email address." id="Nur-Qq-JDS">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3xM-Nb-4hh">
-                                        <rect key="frame" x="0.0" y="0.0" width="456" height="21"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Email Address (optional)" drawsBackground="YES" usesSingleLineMode="YES" id="HjN-Q4-rQR">
-                                            <font key="font" usesAppearanceFont="YES"/>
-                                            <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                        <connections>
-                                            <binding destination="-2" name="value" keyPath="self.emailAddress" id="jN2-gh-npM">
-                                                <dictionary key="options">
-                                                    <bool key="NSConditionallySetsEditable" value="NO"/>
-                                                    <bool key="NSContinuouslyUpdatesValue" value="YES"/>
-                                                </dictionary>
-                                            </binding>
-                                        </connections>
-                                    </textField>
-                                </subviews>
-                                <visibilityPriorities>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                </visibilityPriorities>
-                                <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                </customSpacing>
-                            </stackView>
-                            <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e3N-m3-R3r" userLabel="Send Automatically Container View">
-                                <rect key="frame" x="0.0" y="40" width="456" height="72"/>
-                                <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MDs-Wi-EiJ">
-                                        <rect key="frame" x="-2" y="55" width="226" height="18"/>
-                                        <buttonCell key="cell" type="check" title="Send crash reports automatically" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hsB-Hx-Fgs">
-                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <binding destination="-2" name="value" keyPath="self.sendCrashReportsAutomatically" id="XWy-cs-SjI">
-                                                <dictionary key="options">
-                                                    <integer key="NSNotApplicablePlaceholder" value="0"/>
-                                                    <integer key="NSNullPlaceholder" value="0"/>
-                                                </dictionary>
-                                            </binding>
-                                        </connections>
-                                    </button>
-                                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5D-Vb-5TR">
-                                        <rect key="frame" x="-2" y="0.0" width="460" height="48"/>
-                                        <textFieldCell key="cell" allowsUndo="NO" id="nou-5k-c1U">
-                                            <font key="font" metaFont="system"/>
-                                            <string key="title">You can skip this window in the future when you enable automatically sending crash logs. You can also turn this setting on and off in the Preferences.</string>
-                                            <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                </subviews>
-                                <visibilityPriorities>
-                                    <integer value="1000"/>
-                                    <integer value="1000"/>
-                                </visibilityPriorities>
-                                <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
-                                    <real value="3.4028234663852886e+38"/>
-                                </customSpacing>
-                            </stackView>
-                            <stackView orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6kl-ax-fL1" userLabel="Action Container View">
-                                <rect key="frame" x="0.0" y="0.0" width="456" height="20"/>
-                                <beginningViews>
-                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fEy-Fg-JhO">
-                                        <rect key="frame" x="-7" y="-7" width="118" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Privacy Policy" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mMg-qO-UGu">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="showPrivacyPolicy:" target="-1" id="7TB-8O-Edu"/>
-                                        </connections>
-                                    </button>
-                                </beginningViews>
-                                <endViews>
-                                    <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o4V-7L-v6D">
-                                        <rect key="frame" x="236" y="-7" width="102" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Don’t Send" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gzj-Vz-pdb">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <string key="keyEquivalent" base64-UTF8="YES">
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="b7P-9Z-RkD">
+                                                <rect key="frame" x="-2" y="310" width="580" height="32"/>
+                                                <textFieldCell key="cell" selectable="YES" id="O6E-xl-G55">
+                                                    <font key="font" metaFont="system"/>
+                                                    <string key="title">To help us fix crashing bugs, click Send Crash Log. Below is the text that will be sent to the developers. No other information will be sent.</string>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <scrollView borderType="line" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UTe-5f-47F">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="302"/>
+                                                <clipView key="contentView" copiesOnScroll="NO" id="MeG-49-sPS">
+                                                    <rect key="frame" x="1" y="1" width="48" height="300"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textView editable="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="hW5-cq-81L">
+                                                            <rect key="frame" x="0.0" y="0.0" width="48" height="300"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            <size key="minSize" width="48" height="300"/>
+                                                            <size key="maxSize" width="456" height="10000000"/>
+                                                            <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                                        </textView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </clipView>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="302" id="dai-nw-90h"/>
+                                                </constraints>
+                                                <scroller key="horizontalScroller" hidden="YES" wantsLayer="YES" verticalHuggingPriority="750" horizontal="YES" id="tAG-cm-bBU">
+                                                    <rect key="frame" x="-100" y="-100" width="454" height="16"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </scroller>
+                                                <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" horizontal="NO" id="wLl-nc-XBT">
+                                                    <rect key="frame" x="33" y="1" width="16" height="300"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </scroller>
+                                            </scrollView>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kPE-Kd-1NL" userLabel="Email Container View">
+                                        <rect key="frame" x="0.0" y="116" width="576" height="69"/>
+                                        <subviews>
+                                            <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dOk-kx-oBq">
+                                                <rect key="frame" x="-2" y="53" width="180" height="16"/>
+                                                <textFieldCell key="cell" lineBreakMode="clipping" title="Optional Contact Information" id="h6e-ob-y0Q">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Xnj-T5-Udi">
+                                                <rect key="frame" x="-2" y="29" width="544" height="16"/>
+                                                <textFieldCell key="cell" selectable="YES" title="To get back to you and help with a fix for the problem, please provide your email address." id="Nur-Qq-JDS">
+                                                    <font key="font" metaFont="system"/>
+                                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                            <textField focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="3xM-Nb-4hh">
+                                                <rect key="frame" x="0.0" y="0.0" width="50" height="21"/>
+                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="Email Address (optional)" drawsBackground="YES" usesSingleLineMode="YES" id="HjN-Q4-rQR">
+                                                    <font key="font" usesAppearanceFont="YES"/>
+                                                    <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                                <connections>
+                                                    <binding destination="-2" name="value" keyPath="self.emailAddress" id="jN2-gh-npM">
+                                                        <dictionary key="options">
+                                                            <bool key="NSConditionallySetsEditable" value="NO"/>
+                                                            <bool key="NSContinuouslyUpdatesValue" value="YES"/>
+                                                        </dictionary>
+                                                    </binding>
+                                                </connections>
+                                            </textField>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e3N-m3-R3r" userLabel="Send Automatically Container View">
+                                        <rect key="frame" x="0.0" y="40" width="576" height="56"/>
+                                        <subviews>
+                                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MDs-Wi-EiJ">
+                                                <rect key="frame" x="-2" y="39" width="226" height="18"/>
+                                                <buttonCell key="cell" type="check" title="Send crash reports automatically" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="hsB-Hx-Fgs">
+                                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <binding destination="-2" name="value" keyPath="self.sendCrashReportsAutomatically" id="XWy-cs-SjI">
+                                                        <dictionary key="options">
+                                                            <integer key="NSNotApplicablePlaceholder" value="0"/>
+                                                            <integer key="NSNullPlaceholder" value="0"/>
+                                                        </dictionary>
+                                                    </binding>
+                                                </connections>
+                                            </button>
+                                            <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D5D-Vb-5TR">
+                                                <rect key="frame" x="-2" y="0.0" width="580" height="32"/>
+                                                <textFieldCell key="cell" allowsUndo="NO" id="nou-5k-c1U">
+                                                    <font key="font" metaFont="system"/>
+                                                    <string key="title">You can skip this window in the future when you enable automatically sending crash logs. You can also turn this setting on and off in the Preferences.</string>
+                                                    <color key="textColor" name="secondaryLabelColor" catalog="System" colorSpace="catalog"/>
+                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                </textFieldCell>
+                                            </textField>
+                                        </subviews>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                    <stackView orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="750" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="6kl-ax-fL1" userLabel="Action Container View">
+                                        <rect key="frame" x="0.0" y="0.0" width="576" height="20"/>
+                                        <beginningViews>
+                                            <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fEy-Fg-JhO">
+                                                <rect key="frame" x="-7" y="-7" width="118" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Privacy Policy" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="mMg-qO-UGu">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="showPrivacyPolicy:" target="-1" id="7TB-8O-Edu"/>
+                                                </connections>
+                                            </button>
+                                        </beginningViews>
+                                        <endViews>
+                                            <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="o4V-7L-v6D">
+                                                <rect key="frame" x="356" y="-7" width="102" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Don’t Send" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="gzj-Vz-pdb">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
 Gw
 </string>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="dontSendCrashReport:" target="-2" id="r3y-TC-h8U"/>
-                                        </connections>
-                                    </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fcK-kG-dtY">
-                                        <rect key="frame" x="332" y="-7" width="131" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Send Crash Log" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7ot-Ev-JTY">
-                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
-                                            <string key="keyEquivalent" base64-UTF8="YES">
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="dontSendCrashReport:" target="-2" id="r3y-TC-h8U"/>
+                                                </connections>
+                                            </button>
+                                            <button verticalHuggingPriority="750" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fcK-kG-dtY">
+                                                <rect key="frame" x="452" y="-7" width="131" height="32"/>
+                                                <buttonCell key="cell" type="push" title="Send Crash Log" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="7ot-Ev-JTY">
+                                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                                    <font key="font" metaFont="system"/>
+                                                    <string key="keyEquivalent" base64-UTF8="YES">
 DQ
 </string>
-                                        </buttonCell>
-                                        <connections>
-                                            <action selector="sendCrashReport:" target="-2" id="mob-bL-tRb"/>
-                                        </connections>
-                                    </button>
-                                </endViews>
+                                                </buttonCell>
+                                                <connections>
+                                                    <action selector="sendCrashReport:" target="-2" id="mob-bL-tRb"/>
+                                                </connections>
+                                            </button>
+                                        </endViews>
+                                        <constraints>
+                                            <constraint firstItem="fEy-Fg-JhO" firstAttribute="width" secondItem="o4V-7L-v6D" secondAttribute="width" id="KU1-1m-Dag"/>
+                                            <constraint firstItem="o4V-7L-v6D" firstAttribute="width" secondItem="fcK-kG-dtY" secondAttribute="width" id="WeB-fy-5fP"/>
+                                        </constraints>
+                                        <visibilityPriorities>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                            <integer value="1000"/>
+                                        </visibilityPriorities>
+                                        <customSpacing>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                            <real value="3.4028234663852886e+38"/>
+                                        </customSpacing>
+                                    </stackView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstItem="fEy-Fg-JhO" firstAttribute="width" secondItem="o4V-7L-v6D" secondAttribute="width" id="KU1-1m-Dag"/>
-                                    <constraint firstItem="o4V-7L-v6D" firstAttribute="width" secondItem="fcK-kG-dtY" secondAttribute="width" id="WeB-fy-5fP"/>
+                                    <constraint firstAttribute="trailing" secondItem="6kl-ax-fL1" secondAttribute="trailing" id="XQq-1n-sFt"/>
                                 </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
+                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
@@ -234,31 +263,31 @@ DQ
                             </stackView>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="6kl-ax-fL1" secondAttribute="trailing" id="XQq-1n-sFt"/>
+                            <constraint firstAttribute="bottom" secondItem="JpW-k4-7WH" secondAttribute="bottom" id="FV9-uR-Imm"/>
+                            <constraint firstItem="JpW-k4-7WH" firstAttribute="top" secondItem="i3a-mL-Wxm" secondAttribute="top" id="oXG-Fp-Xkg"/>
                         </constraints>
                         <visibilityPriorities>
-                            <integer value="1000"/>
-                            <integer value="1000"/>
                             <integer value="1000"/>
                             <integer value="1000"/>
                         </visibilityPriorities>
                         <customSpacing>
                             <real value="3.4028234663852886e+38"/>
                             <real value="3.4028234663852886e+38"/>
-                            <real value="3.4028234663852886e+38"/>
-                            <real value="3.4028234663852886e+38"/>
                         </customSpacing>
                     </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="JpW-k4-7WH" secondAttribute="bottom" constant="20" id="2TB-fa-7IH"/>
-                    <constraint firstAttribute="width" constant="496" id="GPK-Zx-hn8"/>
-                    <constraint firstItem="JpW-k4-7WH" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" id="clP-js-DJb"/>
-                    <constraint firstAttribute="trailing" secondItem="JpW-k4-7WH" secondAttribute="trailing" constant="20" id="gLv-3r-73k"/>
-                    <constraint firstItem="JpW-k4-7WH" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="uiv-z0-JQu"/>
+                    <constraint firstAttribute="trailing" secondItem="i3a-mL-Wxm" secondAttribute="trailing" constant="20" id="Frg-FD-Vgc"/>
+                    <constraint firstAttribute="width" constant="700" id="GPK-Zx-hn8"/>
+                    <constraint firstItem="i3a-mL-Wxm" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" id="Z2c-vt-B95"/>
+                    <constraint firstAttribute="bottom" secondItem="i3a-mL-Wxm" secondAttribute="bottom" constant="20" id="uXk-YR-zLD"/>
+                    <constraint firstItem="i3a-mL-Wxm" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="ws7-Wv-nFl"/>
                 </constraints>
             </view>
-            <point key="canvasLocation" x="121" y="-165"/>
+            <point key="canvasLocation" x="67" y="-159.5"/>
         </window>
     </objects>
+    <resources>
+        <image name="NSCaution" width="32" height="32"/>
+    </resources>
 </document>
