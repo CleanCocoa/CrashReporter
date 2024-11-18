@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.3
 
 //  Copyright © 2019 Christian Tietze. All rights reserved. Distributed under the MIT License.
 

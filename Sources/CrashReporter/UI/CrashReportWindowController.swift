@@ -18,19 +18,22 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         crashLogSender: SendsCrashLog,
         privacyPolicyURL: URL,
         collectEmailSetting: EmailAddressSetting,
-        sendReportsAutomaticallySetting: SendReportsAutomaticallySetting) {
+        sendReportsAutomaticallySetting: SendReportsAutomaticallySetting
+    ) {
+        self.init()
 
-        self.init(windowNibName: "CrashReporterWindow")
+        var nibTopLevelObjects: NSArray?
+        CrashReporterBundle.loadNibNamed(
+            "CrashReporterWindow", owner: self, topLevelObjects: &nibTopLevelObjects)
+        self.window = nibTopLevelObjects?.lazy.compactMap({ $0 as? NSWindow }).first
 
         self.crashLogText = crashLogText
         self.crashLogSender = crashLogSender
         self.privacyPolicyURL = privacyPolicyURL
         self.collectEmailSetting = collectEmailSetting
         self.sendReportsAutomaticallySetting = sendReportsAutomaticallySetting
-    }
 
-    override func windowDidLoad() {
-        super.windowDidLoad()
+        // Setup window
         window?.center()
         window?.delegate = self
 
@@ -48,13 +51,13 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
 
     // MARK: View components
 
-	@IBOutlet var textView: NSTextView! {
-		didSet {
-			textView.font = NSFont.userFixedPitchFont(ofSize: 0.0)
-			textView.textContainerInset = NSSize(width: 5.0, height: 5.0)
-			updateCrashLogText()
-		}
-	}
+    @IBOutlet var textView: NSTextView! {
+        didSet {
+            textView.font = NSFont.userFixedPitchFont(ofSize: 0.0)
+            textView.textContainerInset = NSSize(width: 5.0, height: 5.0)
+            updateCrashLogText()
+        }
+    }
 
     @IBOutlet weak var collectEmailContainerView: NSView!
     @IBOutlet weak var emailAddressTitleLabel: NSTextField!
@@ -93,8 +96,8 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         return constraint
     }()
 
-	@IBOutlet var sendCrashLogButton: NSButton!
-	@IBOutlet var dontSendButton: NSButton!
+    @IBOutlet var sendCrashLogButton: NSButton!
+    @IBOutlet var dontSendButton: NSButton!
 
     private func updateCrashLogText() {
         guard let textView = self.textView else { return }
@@ -129,7 +132,8 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         sendAutomaticallyLabel?.isHidden = isDisabled
 
         if isDisabled {
-            if !sendAutomaticallyContainerView.constraints.contains(hideSendAutomaticallyConstraint) {
+            if !sendAutomaticallyContainerView.constraints.contains(hideSendAutomaticallyConstraint)
+            {
                 sendAutomaticallyContainerView.addConstraint(hideSendAutomaticallyConstraint)
             }
         } else {
@@ -193,34 +197,35 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         }
     }
 
-	private var didSendCrashLog = false {
-		didSet {
-			updateButtonStates()
-		}
-	}
+    private var didSendCrashLog = false {
+        didSet {
+            updateButtonStates()
+        }
+    }
 
-	// MARK: - User Interactions
+    // MARK: - User Interactions
 
     lazy var isRunningTests: Bool = false
 
-	@IBAction func sendCrashReport(_ sender: Any?) {
-		guard !didSendCrashLog else { return }
+    @IBAction func sendCrashReport(_ sender: Any?) {
+        guard !didSendCrashLog else { return }
         defer { didSendCrashLog = true }
 
-		if  !isRunningTests,
+        if !isRunningTests,
             let crashLogText = self.crashLogText,
-            let crashLogSender = self.crashLogSender {
+            let crashLogSender = self.crashLogSender
+        {
 
             let emailAddress = self.collectEmailSetting.isVisible ? self.emailAddress : nil
             crashLogSender.send(emailAddress: emailAddress, crashLogText: crashLogText)
-		}
+        }
 
-		close()
-	}
+        close()
+    }
 
-	@IBAction func dontSendCrashReport(_ sender: Any?) {
-		close()
-	}
+    @IBAction func dontSendCrashReport(_ sender: Any?) {
+        close()
+    }
 
     override func responds(to aSelector: Selector!) -> Bool {
         if aSelector == #selector(showPrivacyPolicy(_:)) {
@@ -234,4 +239,3 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         NSWorkspace.shared.open(privacyPolicyURL)
     }
 }
-
