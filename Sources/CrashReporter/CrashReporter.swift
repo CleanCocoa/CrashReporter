@@ -127,9 +127,10 @@ public final class CrashReporter {
         if shouldSendCrashLogsAutomatically && alwaysShowCrashReporterWindow == false {
             let emailSetting = EmailAddressSetting(isVisible: false, userDefaults: self.userDefaults, emailAddressKey: self.defaultsKeys.emailAddressKey)
             let emailAddress = collectEmailAddress ? emailSetting.emailAddress : nil
-            send(emailAddress: emailAddress, crashLogText: crashLog.content)
+            send(emailAddress: emailAddress, userProvidedDetails: nil, crashLogText: crashLog.content)
         } else {
             runCrashReporterWindow(
+                appName: appName,
                 crashLog: crashLog,
                 displayAsModal: displayCrashReporterWindowAsModal,
                 hideEmailCollection: !collectEmailAddress,
@@ -158,6 +159,7 @@ public final class CrashReporter {
     internal var crashReportWindowController: CrashReportWindowController?
 
     internal func runCrashReporterWindow(
+        appName: String,
         crashLog: CrashLog,
         displayAsModal: Bool,
         hideEmailCollection: Bool,
@@ -172,6 +174,7 @@ public final class CrashReporter {
             sendCrashLogsAutomaticallyKey: self.defaultsKeys.sendCrashLogsAutomaticallyKey)
 
         self.crashReportWindowController = CrashReportWindowController(
+            appName: appName,
             crashLogText: crashLog.content,
             // Produces a retain cycle that we'll break when the window closes:
             crashLogSender: self,
@@ -212,7 +215,7 @@ public final class CrashReporter {
 // MARK: - SendsCrashLog
 
 extension CrashReporter: SendsCrashLog {
-    internal func send(emailAddress: String?, crashLogText: String) {
+    internal func send(emailAddress: String?, userProvidedDetails: String?, crashLogText: String) {
         var request = URLRequest(url: self.crashReporterURL)
         request.httpMethod = "POST"
 
@@ -223,6 +226,7 @@ extension CrashReporter: SendsCrashLog {
 
         let form: [String : String?] = [
             "userEmail" : emailAddress,
+            "userProvidedDetails": userProvidedDetails,
             "crashlog" : crashLogText
         ]
         // See <https://www.w3.org/TR/html401/interact/forms.html#h-17.13.4> for a specification.

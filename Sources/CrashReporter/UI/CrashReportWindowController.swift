@@ -8,12 +8,13 @@
 import AppKit
 
 protocol SendsCrashLog {
-    func send(emailAddress: String?, crashLogText: String)
+    func send(emailAddress: String?, userProvidedDetails: String?, crashLogText: String)
 }
 
 final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
 
     convenience init(
+        appName: String,
         crashLogText: String,
         crashLogSender: SendsCrashLog,
         privacyPolicyURL: URL,
@@ -37,10 +38,26 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         window?.center()
         window?.delegate = self
 
+        window?.title = "\(appName) Crash Reporter"
+        titleLabel.stringValue = "\(appName) quit unexpectedly."
+        crashLogContainerView.isHidden = true
+
         updateCrashLogText()
         updateCollectEmailVisibility()
         updateAutomaticallySendCrashLogVisibility()
         updateButtonStates()
+
+        if let diagnosticsReporterURL = NSWorkspace.shared.urlForApplication(
+            withBundleIdentifier: "com.apple.DiagnosticsReporter")
+        {
+            let diagnosticsReporterIcon = NSWorkspace.shared.icon(
+                forFile: diagnosticsReporterURL.path)
+            diagnosticsReporterIcon.size = CGSize(width: 64, height: 64)
+
+            warningImageView.image = diagnosticsReporterIcon
+        } else {
+            warningImageView.imageAlignment = .alignTopRight
+        }
     }
 
     var onWindowWillClose: ((NSWindow?) -> Void)?
@@ -59,45 +76,17 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         }
     }
 
+    @IBOutlet var warningImageView: NSImageView!
+    @IBOutlet var titleLabel: NSTextField!
+    @IBOutlet var bodyLabel: NSTextField!
+
     @IBOutlet weak var collectEmailContainerView: NSView!
-    @IBOutlet weak var emailAddressTitleLabel: NSTextField!
-    @IBOutlet weak var emailAddressLabel: NSTextField!
-    @IBOutlet weak var emailAddressTextField: NSTextField!
-
-    lazy var hideCollectEmailConstraint: NSLayoutConstraint = {
-        let containerView = collectEmailContainerView!
-        let constraint = NSLayoutConstraint(
-            item: containerView,
-            attribute: .height,
-            relatedBy: .equal,
-            toItem: nil,
-            attribute: .height,
-            multiplier: 1,
-            constant: 0)
-        constraint.priority = .required
-        return constraint
-    }()
-
+    @IBOutlet weak var crashLogContainerView: NSView!
     @IBOutlet weak var sendAutomaticallyContainerView: NSView!
-    @IBOutlet weak var sendAutomaticallyCheckbox: NSButton!
-    @IBOutlet weak var sendAutomaticallyLabel: NSTextField!
-
-    lazy var hideSendAutomaticallyConstraint: NSLayoutConstraint = {
-        let containerView = sendAutomaticallyContainerView!
-        let constraint = NSLayoutConstraint(
-            item: containerView,
-            attribute: .height,
-            relatedBy: .equal,
-            toItem: nil,
-            attribute: .height,
-            multiplier: 1,
-            constant: 0)
-        constraint.priority = .required
-        return constraint
-    }()
 
     @IBOutlet var sendCrashLogButton: NSButton!
     @IBOutlet var dontSendButton: NSButton!
+    @IBOutlet var toggleCrashLogButton: NSButton!
 
     private func updateCrashLogText() {
         guard let textView = self.textView else { return }
@@ -110,35 +99,16 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
     }
 
     private func updateCollectEmailVisibility() {
-        let isDisabled = self.hideCollectEmail
-        emailAddressTitleLabel?.isHidden = isDisabled
-        emailAddressLabel?.isHidden = isDisabled
-        emailAddressTextField?.isEnabled = !isDisabled
-        emailAddressTextField?.isHidden = isDisabled
-
-        if isDisabled {
-            if !collectEmailContainerView.constraints.contains(hideCollectEmailConstraint) {
-                collectEmailContainerView.addConstraint(hideCollectEmailConstraint)
-            }
-        } else {
-            collectEmailContainerView.removeConstraint(hideCollectEmailConstraint)
-        }
+        collectEmailContainerView.isHidden = self.hideCollectEmail
+        bodyLabel.stringValue =
+            "Help us fix crashes by submitting this crash report."
+            + (self.hideCollectEmail
+                ? ""
+                : " You can include your email address if you agree to being contacted for more details.")
     }
 
     private func updateAutomaticallySendCrashLogVisibility() {
-        let isDisabled = self.hideAutomaticallySend
-        sendAutomaticallyCheckbox?.isEnabled = !isDisabled
-        sendAutomaticallyCheckbox?.isHidden = isDisabled
-        sendAutomaticallyLabel?.isHidden = isDisabled
-
-        if isDisabled {
-            if !sendAutomaticallyContainerView.constraints.contains(hideSendAutomaticallyConstraint)
-            {
-                sendAutomaticallyContainerView.addConstraint(hideSendAutomaticallyConstraint)
-            }
-        } else {
-            sendAutomaticallyContainerView.removeConstraint(hideSendAutomaticallyConstraint)
-        }
+        sendAutomaticallyContainerView.isHidden = self.hideAutomaticallySend
     }
 
     // MARK: Model
@@ -182,6 +152,8 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
             collectEmailSetting.emailAddress = newValue
         }
     }
+    
+    @objc dynamic var userProvidedDetails = ""
 
     internal var privacyPolicyURL: URL?
 
@@ -217,7 +189,7 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
         {
 
             let emailAddress = self.collectEmailSetting.isVisible ? self.emailAddress : nil
-            crashLogSender.send(emailAddress: emailAddress, crashLogText: crashLogText)
+            crashLogSender.send(emailAddress: emailAddress, userProvidedDetails: userProvidedDetails, crashLogText: crashLogText)
         }
 
         close()
@@ -237,5 +209,11 @@ final class CrashReportWindowController: NSWindowController, NSWindowDelegate {
     @IBAction func showPrivacyPolicy(_ sender: Any?) {
         guard let privacyPolicyURL = self.privacyPolicyURL else { return }
         NSWorkspace.shared.open(privacyPolicyURL)
+    }
+
+    @IBAction func toggleCrashLog(_ sender: Any?) {
+        crashLogContainerView.isHidden = !crashLogContainerView.isHidden
+        toggleCrashLogButton.title =
+            crashLogContainerView.isHidden ? "Show Details" : "Hide Details"
     }
 }
