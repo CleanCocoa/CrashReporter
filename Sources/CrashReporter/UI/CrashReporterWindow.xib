@@ -17,7 +17,6 @@
                 <outlet property="textView" destination="hW5-cq-81L" id="RLj-Ti-pGC"/>
                 <outlet property="titleLabel" destination="QBv-7S-WQv" id="vXv-LP-7g2"/>
                 <outlet property="toggleCrashLogButton" destination="S9d-Yc-Rsq" id="UeT-k8-1Bs"/>
-                <outlet property="warningImageView" destination="WRQ-hC-NnI" id="MXc-r7-Oyv"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="4kq-h9-osI"/>
             </connections>
         </customObject>
@@ -34,13 +33,13 @@
                     <stackView distribution="fill" orientation="horizontal" alignment="top" spacing="20" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i3a-mL-Wxm">
                         <rect key="frame" x="20" y="20" width="510" height="477"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WRQ-hC-NnI">
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WRQ-hC-NnI" userLabel="App Icon Image">
                                 <rect key="frame" x="0.0" y="413" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="gQb-V0-vxs"/>
                                     <constraint firstAttribute="width" constant="64" id="p29-7P-z1f"/>
                                 </constraints>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSCaution" id="Stm-g2-78O"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSApplicationIcon" id="Stm-g2-78O"/>
                             </imageView>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="20" horizontalStackHuggingPriority="250" verticalStackHuggingPriority="250" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JpW-k4-7WH">
                                 <rect key="frame" x="84" y="0.0" width="426" height="477"/>
@@ -309,19 +308,30 @@ DQ
                             <real value="3.4028234663852886e+38"/>
                         </customSpacing>
                     </stackView>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GPF-JO-IpT" userLabel="Caution Image">
+                        <rect key="frame" x="54" y="433" width="32" height="32"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="32" id="mW2-i9-Tu7"/>
+                            <constraint firstAttribute="height" constant="32" id="wdZ-Cd-g2E"/>
+                        </constraints>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSCaution" id="fFj-MI-zel"/>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="i3a-mL-Wxm" secondAttribute="trailing" constant="20" id="Frg-FD-Vgc"/>
                     <constraint firstAttribute="width" constant="550" id="GPK-Zx-hn8"/>
                     <constraint firstItem="i3a-mL-Wxm" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" id="Z2c-vt-B95"/>
                     <constraint firstAttribute="bottom" secondItem="i3a-mL-Wxm" secondAttribute="bottom" constant="20" id="uXk-YR-zLD"/>
+                    <constraint firstItem="GPF-JO-IpT" firstAttribute="leading" secondItem="WRQ-hC-NnI" secondAttribute="trailing" constant="-30" id="wF9-i6-HXS"/>
                     <constraint firstItem="i3a-mL-Wxm" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" id="ws7-Wv-nFl"/>
+                    <constraint firstItem="GPF-JO-IpT" firstAttribute="top" secondItem="WRQ-hC-NnI" secondAttribute="bottom" constant="-32" id="xx9-VE-dkM"/>
                 </constraints>
             </view>
             <point key="canvasLocation" x="67" y="-159.5"/>
         </window>
     </objects>
     <resources>
+        <image name="NSApplicationIcon" width="32" height="32"/>
         <image name="NSCaution" width="32" height="32"/>
     </resources>
 </document>
